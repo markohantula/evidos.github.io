@@ -1,0 +1,63 @@
+swagger: '2.0'
+info:
+  title: Signhost api
+  description: Integrate with signhost using our API to create transactions and retrieve current status. 
+  version: 1.0
+produces:
+  - application/json
+parameters:
+  - name: Application
+    description: The APPKey
+    in: header
+    type: string
+    required: true
+paths:
+  '/api/transaction/{transactionId}':
+    get:
+      description: Returns current transaction details
+      parameters:
+        - name: transactionId
+          description: ID of the transaction
+          in: path
+          required: true
+      responses:
+        '200':
+          description: Details of the transaction
+          schema:
+            title: Transaction
+            type: object
+            properties:
+              Id:
+                type: string
+              CreatedDate:
+                type: dateTime
+        '401':
+          description: Not authorized to access the specified transaction
+
+  '/api/transaction':
+    post:
+      description: Creates a new transaction
+      responses:
+        '200':
+          description: Details of the created transaction.
+        '401':
+          description: Not authorized to create a transaction.
+  '/api/transaction/{transactionId}/file/{fileId}':
+    put:
+      description: Add a file to the transaction or overwrite an existing file with the same {fileId}
+      parameters:
+        - name: transactionId
+          description: ID of an existing -- not yet started -- transaction
+          in: path
+          required: true
+          type: string
+        - name: fileId
+          description: A unique identifier provided by you for the file. 
+          in: path
+          required: true
+          type: string
+      responses:
+        '201':
+          description: File succesfully created and added to the transaction
+        '204':
+          description: Existing file replaced within the specified transaction

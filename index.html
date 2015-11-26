@@ -1,1 +1,73 @@
-Hello API users
+---
+layout: default
+---
+
+<div class="home">
+
+  <h1 class="page-heading">Posts</h1>
+
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% for path in site.data.api-swagger.paths %}
+    <h2>{{ path[0] }}</h2>
+    {% for m in path[1] %}
+      {% assign method_name = m[0] %}
+      {% assign method = m[1] %}
+      <h3>{{ method_name }}</h3>
+      <p>{{ method.description }}</p>
+
+      {% if method.parameters | first %}
+        <h4>Parameters</h4>
+        <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Required</th>
+            <th>Description</th>
+        </thead>
+        <tbody>
+        {% for p in method.parameters %}
+          <tr>
+            <td>{{ p.name }}</td>
+            <td>{{ p.in }}</td>
+            <td>{{ p.required }}</td>
+            <td>{{ p.description }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+      {% endif %}
+
+      {% if method.responses | first %}
+        <h4>Responses</h4>
+        <table>
+          <tbody>
+          {% for r in method.responses %}
+            {% assign response_name = r[0] %}
+            {% assign response = r[1] %}
+
+            <tr>
+              <th>{{ response_name }}</th>
+              <td>{{ response.description }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+
+  {% comment %}<p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p> {% endcomment %}
+
+</div>
