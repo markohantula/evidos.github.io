@@ -37,6 +37,65 @@ paths:
   '/api/transaction':
     post:
       description: Creates a new transaction
+      parameters:
+        - in: body
+          name: body
+          description: Transaction to be added
+          required: true
+          schema:
+            type: object
+            properties:
+              File:
+                type: object
+                properties:
+                  Name:
+                    type: string
+                    description: The name of the file
+              Seal:
+                type: boolean
+                default: true
+                description: Seal the document before sending to the signers.
+              Signers:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Email:
+                      type: string
+                      required: true
+                      description: The e-mail address of the signer
+                    Mobile:
+                      type: string
+                      require: false
+                      description: The mobile phone number of the signer
+                    Iban:
+                      type: string
+                      description: The IBAN of the signer
+                    BSN:
+                      type: string
+                      description: The BSN of the signer
+                    SignRequestMessage:
+                      required: true
+                      description: The message - in plain text - of the sign request.
+                      type: string
+              Receivers:
+                type: array
+              Reference:
+                type: string
+              PostbackUrl:
+                required: false
+                type: string
+              SignRequestMode:
+                type: int
+              DaysToExpire:
+                type: int
+                required: false
+              SendEmailNotifications:
+                type: boolean
+                required: false
+              Context:
+                type: object
+                description: Any valid json object which we will return back to you when doing a GET on the transaciton or when we send a postback.
       responses:
         '200':
           description: Details of the created transaction.
