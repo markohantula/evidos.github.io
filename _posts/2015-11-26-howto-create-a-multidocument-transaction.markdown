@@ -19,6 +19,7 @@ Example
     curl \
         -H "Authorization: APIKey 0123456789abcdef" \
         -H "Application: APPKey yourclient fedcba0123456789" \
+        -H "Content-Type: application/json" \
         -d '{
           "Signers": [
             {
@@ -86,6 +87,7 @@ Example
         -H "Authorization: APIKey 0123456789abcdef" \
         -H "Application: APPKey yourclient fedcba0123456789" \
         -H "SH-DisplayName: Your personal contract" \
+        -H "Content-Type: application/pdf" \
         -XPUT \
         -T Contract.pdf \
         https://api.signhost.com/api/transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57/file/Contract.pdf
@@ -93,6 +95,17 @@ Example
 
 Success 201
 Success 204
+
+You can add another file by using a a different fileId like this:
+
+    curl \
+        -H "Authorization: APIKey 0123456789abcdef" \
+        -H "Application: APPKey yourclient fedcba0123456789" \
+        -H "SH-DisplayName: Your personal contract" \
+        -H "Content-Type: application/pdf" \
+        -XPUT \
+        -T Document.pdf \
+        https://api.signhost.com/api/transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57/file/AnotherFile.pdf
 
 ### Start the transaction
 
