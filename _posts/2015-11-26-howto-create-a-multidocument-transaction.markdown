@@ -101,7 +101,7 @@ You can add another file by using a a different fileId like this:
     curl \
         -H "Authorization: APIKey 0123456789abcdef" \
         -H "Application: APPKey yourclient fedcba0123456789" \
-        -H "SH-DisplayName: Your personal contract" \
+        -H "SH-DisplayName: Extra document to read and sign" \
         -H "Content-Type: application/pdf" \
         -XPUT \
         -T Document.pdf \
