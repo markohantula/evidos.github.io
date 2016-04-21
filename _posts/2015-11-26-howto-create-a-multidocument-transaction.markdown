@@ -2,10 +2,10 @@
 layout: post
 title:  "How to create a multi document transaction"
 date:   2015-11-26 00:00:00 +0000
-categories: api howto
+categories: api howto multidoc
 ---
 
-## Howto start a multi document transaction
+## How-to start a multi document transaction
 
 First you will have to create a transaction. A transactionid will be returned which you can use to add documents to the transaction. When all documents are uploaded you'll need to start the transaction.
 
