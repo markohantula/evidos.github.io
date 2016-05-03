@@ -204,3 +204,42 @@ pre {
         }
     }
 }
+
+/* Own CSS */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1em;
+}
+td {
+  vertical-align: top;
+}
+
+/* Make sure object type doesn't wrap */
+td:nth-child(2n) {
+  white-space: nowrap
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: $brand-color;
+    color: white;
+}
+
+.indent {
+  padding-left: 2em;
+}
+
+em {
+  display: block;
+  font-style: normal;
+  color: #908F8F;
+  font-size: 12px;
+}

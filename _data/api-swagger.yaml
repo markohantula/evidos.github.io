@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Signhost api
-  description: Integrate with signhost using our API to create transactions and retrieve current status. 
+  description: Integrate with signhost using our API to create transactions and retrieve current status.
   version: 1.0
 produces:
   - application/json
@@ -33,7 +33,33 @@ paths:
                 type: dateTime
         '401':
           description: Not authorized to access the specified transaction
-
+  '/api/transaction/{transactionId}/file/{fileId} ':
+    get:
+      description: Returns the (signed) document(s).
+      parameters:
+        - name: transactionId
+          description: ID of the description
+          in: path
+          required: true
+        - name: fileId
+          description: A unique identifier provided by you for the file.
+          in: path
+          required: true
+  '/api/file/receipt/{transactionId}':
+    get:
+      description: Returns receipt.
+      parameters:
+        - name: transactionId
+          description: ID of the description
+          in: path
+          required: true
+        - name: fileId
+          description: A unique identifier provided by you for the file.
+          in: path
+          required: true
+      responses:
+       '200':
+          description: (signed) document(s)
   '/api/transaction':
     post:
       description: Creates a new transaction
@@ -47,6 +73,7 @@ paths:
             properties:
               File:
                 type: object
+                description: The file information.
                 properties:
                   Name:
                     type: string
@@ -57,6 +84,7 @@ paths:
                 description: Seal the document before sending to the signers.
               Signers:
                 type: array
+                description: The signer information, max 4 signers.
                 items:
                   type: object
                   properties:
@@ -66,36 +94,130 @@ paths:
                       description: The e-mail address of the signer
                     Mobile:
                       type: string
-                      require: false
+                      required: RequireSmsVerification
                       description: The mobile phone number of the signer
                     Iban:
                       type: string
+                      required: RequireIdealVerification
                       description: The IBAN of the signer
                     BSN:
                       type: string
+                      required: RequireDigiDVerification
                       description: The BSN of the signer
                     SignRequestMessage:
                       required: true
                       description: The message - in plain text - of the sign request.
                       type: string
+                    RequireScribble:
+                      required: false
+                      description: Require that the signer has to draw a scribble.
+                      type: boolean
+                    RequireSmsVerification:
+                      required: false
+                      description: Require that the signer has to verify by sms.
+                      type: boolean
+                    RequireIdealVerification:
+                      required: false
+                      description: Require that the signer has to verify by iDeal.
+                      type: boolean
+                    RequireDigiDVerification:
+                      required: false
+                      description: Require that the signer has to verify by DigiD.
+                      type: boolean
+                    RequireKennisnetVerification:
+                      required: false
+                      description: Require that the signer has to verify by Kennisnet.
+                      type: boolean
+                    RequireSurfnetVerification:
+                      required: false
+                      description: Require that the signer has to verify by Surfnet.
+                      type: boolean
+                    SendSignRequest:
+                      required: false
+                      description: Send a sign invitation to the signer his e-mail address.
+                      type: boolean
+                    SignRequestMessage:
+                      required: SendSignRequest
+                      description: The message of the sign request in plan text (no HTML).
+                      type: string
+                    SendSignConfirmation:
+                      required: false
+                      description: Send the sign confirmation to the signer his e-mail address.
+                      type: boolean
+                    Language:
+                      required: false
+                      description: The language of the receiving user, only de-DE, en-US, es-ES, fr-FR, it-IT and nl-NL are allowed.
+                      type: string
+                    ScribbleName:
+                      required: false
+                      description: The name of the signer, this will be pre filled in the scribble form.
+                      type: string
+                    ScribbleNameFixed:
+                      required: false
+                      description: The switch to allow or disallow the signer to modify the ScribbleName in the scribble form.
+                      type: boolean
+                    DaysToRemind:
+                      required: false
+                      description: Amount of days before reminding the signers. -1 to disable reminders.
+                      type: integer
+                    Expires:
+                      required: false
+                      description: When set the signer is no longer allowed to sign the transaction after this date.
+                      type: dateTime
+                    Reference:
+                      required: false
+                      description: The reference of the signer.
+                      type: string
+                    ReturnUrl:
+                      required: false
+                      description: The url to redirect the user to after signing, rejecting or cancelling.
+                      type: string
               Receivers:
                 type: array
+                items:
+                  type: object
+                  properties:
+                    Name:
+                      type: string
+                      required: true
+                      description: The name of the receiver.
+                    Email:
+                      type: string
+                      required: true
+                      description: The E-mail address of the reveiver.
+                    Language:
+                      type: string
+                      required: false
+                      description: The language of the receiver, only de-DE, en-US, es-ES, fr-FR, it-IT and nl-NL are allowed.
+                    Message:
+                      type: string
+                      required: false
+                      description: The email message towards the receiver. Plain text (no HTML).
+                    Reference:
+                      type: string
+                      required: false
+                      description: The reference of the receiver.
               Reference:
                 type: string
+                description: The reference of the transaction. For example "1234"
               PostbackUrl:
                 required: false
                 type: string
+                description: The absolute url to postback the status updates. For example https://example.com/postback.php
               SignRequestMode:
                 type: int
+                description: Set to 1 for sending at once, to 2 for sequential.
               DaysToExpire:
                 type: int
                 required: false
+                description: Amount of days before expiration. Max 90 days.
               SendEmailNotifications:
                 type: boolean
                 required: false
+                description: Send e-mail notifications to the sender.
               Context:
                 type: object
-                description: Any valid json object which we will return back to you when doing a GET on the transaciton or when we send a postback.
+                description: Any valid json object which we will return back to you when doing a GET on the transaction or when we send a postback.
       responses:
         '200':
           description: Details of the created transaction.
@@ -111,7 +233,7 @@ paths:
           required: true
           type: string
         - name: fileId
-          description: A unique identifier provided by you for the file. 
+          description: A unique identifier provided by you for the file.
           in: path
           required: true
           type: string
@@ -120,3 +242,26 @@ paths:
           description: File succesfully created and added to the transaction
         '204':
           description: Existing file replaced within the specified transaction
+  '/delete/transaction/{transactionId}':
+    delete:
+      description: Delete a transaction  by a transaction id.
+      parameters:
+        - name: transactionId
+          description: ID of the transaction
+          in: path
+          required: true
+        - name: body
+          in: body
+          description: Cancellation details
+          required: false
+          schema:
+            type: object
+            properties:
+              SendNotifications:
+                type: boolean
+                required: false
+                description: Send e-mail notifications to the awaiting signers. Default is false.
+              Reason:
+                type: string
+                required: false
+                description: The reason of canncellation.

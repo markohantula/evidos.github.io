@@ -19,15 +19,17 @@ layout: default
   </ul>
 
   {% for path in site.data.api-swagger.paths %}
-    <h2>{{ path[0] }}</h2>
+    <h1>{{ path[0] }}</h1>
     {% for m in path[1] %}
       {% assign method_name = m[0] %}
       {% assign method = m[1] %}
-      <h3>{{ method_name }}</h3>
+      <h2>{{ method_name }}</h2>
       <p>{{ method.description }}</p>
 
+      <!-- Begin Parameter section -->
       {% if method.parameters | first %}
-        <h4>Parameters</h4>
+
+        <h3>Parameters</h3>
         <table>
         <thead>
           <tr>
@@ -37,19 +39,129 @@ layout: default
             <th>Description</th>
         </thead>
         <tbody>
+
         {% for p in method.parameters %}
           <tr>
             <td>{{ p.name }}</td>
             <td>{{ p.in }}</td>
             <td>{{ p.required }}</td>
             <td>{{ p.description }}
-            Schema: {{ p.schema }}</td>
+          </td>
           </tr>
         {% endfor %}
         </tbody>
-        </table>
+      </table></br>
+      {% endif %}
+      <!-- End Parameter section -->
+
+      <!-- Begin Request body section -->
+      {% for p in method.parameters %}
+      {% if p.schema != null | first %}
+        <h3>Request Body</h3>
+        <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>type</th>
+            <th>Description</th>
+        </thead>
+        <tbody>
+          {% for prop in p.schema.properties %}
+          {% assign objectproperty_name = prop[0] %}
+          {% assign objectproperty = prop[1] %}
+          <tr>
+            <td>{{ objectproperty_name }}</td>
+            <td>{{ objectproperty.type }}</td>
+            <td>{{ objectproperty.description }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table></br>
+
+      <!-- Begin Request body object definition section -->
+
+      <!-- Objects -->
+      <!-- Access Request body object -->
+      {% for property in p.schema.properties %}
+      {% assign objectproperty_name = property[0] %}
+      {% assign objectproperty = property[1] %}
+
+      {% if objectproperty.properties != null %}
+
+      <h4>{{ objectproperty_name }}</h4>
+      <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>type</th>
+          <th>Description</th>
+      </thead>
+        <tbody>
+
+      <!-- Access inner object properties -->
+      {% for objectproperty in objectproperty.properties %}
+      {% assign innerobjectproperty_name = objectproperty[0] %}
+      {% assign innerobjectproperty = objectproperty[1] %}
+
+        <tr>
+          <td>{{ innerobjectproperty_name }}</td>
+          <td>{{ innerobjectproperty.type }} <em>{{ innerobjectproperty.required }}</em></td>
+          <td>{{ innerobjectproperty.description }}</td>
+        </tr>
+
+      {% endfor %}
+
+       </tbody>
+      </table></br>
       {% endif %}
 
+      <!-- Array Objects -->
+      {% if objectproperty.items.properties != null %}
+
+      <h4>{{ objectproperty_name }}</h4>
+      <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>type</th>
+          <th>Description</th>
+      </thead>
+        <tbody>
+
+      <!-- Access inner object properties -->
+      {% for objectproperty in objectproperty.items.properties %}
+      {% assign innerobjectproperty_name = objectproperty[0] %}
+      {% assign innerobjectproperty = objectproperty[1] %}
+
+      <!-- Table -->
+        <tr>
+          <td>{{ innerobjectproperty_name }}</td>
+          <td>{{ innerobjectproperty.type }}
+            {% if innerobjectproperty.required != false %}
+            {% if innerobjectproperty.required == true %}
+            <em>required</em>
+            {% else %}
+            <em>{{ innerobjectproperty.required }}</em>
+            {% endif %}
+            {% endif %}
+          </td>
+          <td>{{ innerobjectproperty.description }}</td>
+        </tr>
+
+      {% endfor %}
+
+       </tbody>
+      </table></br>
+      {% endif %}
+
+      {% endfor %}
+      <!-- End Request body object definition section -->
+
+      {% endif %}
+      {% endfor %}
+      <!-- End Request body section -->
+
+      <!-- Begin Response section -->
       {% if method.responses | first %}
         <h4>Responses</h4>
         <table>
@@ -66,6 +178,7 @@ layout: default
           </tbody>
         </table>
       {% endif %}
+      <!-- End Response section -->
     {% endfor %}
   {% endfor %}
 
