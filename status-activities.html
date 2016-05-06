@@ -1,0 +1,46 @@
+---
+layout: default
+---
+
+<div class="home">
+
+  <h1 class="page-heading">Posts</h1>
+
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h2>Transaction Statuses</h2>
+  <table>
+    <tbody>
+        {% for status in site.data.status-activity.status %}
+      <tr>
+        <th>{{ status.Number }}</th>
+        <td>{{ status.Message }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>Signer Activities</H2>
+  <table>
+    <tbody>
+        {% for activity in site.data.status-activity.activity %}
+      <tr>
+        <th>{{ activity.Number }}</th>
+        <td>{{ activity.Message }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% comment %}<p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p> {% endcomment %}
+
+</div>
