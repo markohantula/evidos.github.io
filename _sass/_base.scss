@@ -216,11 +216,6 @@ td {
   vertical-align: top;
 }
 
-/* Make sure object type doesn't wrap */
-td:nth-child(2n) {
-  white-space: nowrap
-}
-
 th, td {
     text-align: left;
     padding: 8px;
