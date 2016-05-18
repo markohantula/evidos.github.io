@@ -22,6 +22,7 @@ layout: default
   <p>You can make HTTP GET, POST or PUT Requests. Requests are passed to the API by using JSON objects to the API endpoints with the appropriate parameters. The documentation for each API call will contain more detail on the parameters accepted by the call.</p>
   <p>All responses are sent JSON-encoded. The specific responses (successful ones) are described in the documentation section for each method. See http://en.wikipedia.org/wiki/Json for more information on JSON.</p>
   <p>All input strings should be UTF-8 encoded, our response is always UTF-8 encoded.</p>
+  <p>Some of our endpoints return both the status of the transaction and signer activities. Further details about the statuses and activities can be found <a href="/status-activity/">here</a>.</p>
   {% for path in site.data.api-swagger.paths %}
     {% for m in path[1] %}
       {% assign method_name = m[0] %}
