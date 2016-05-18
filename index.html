@@ -18,12 +18,19 @@ layout: default
     {% endfor %}
   </ul>
 
+  <h1>Endpoints</h1>
+  <p>You can make HTTP GET, POST or PUT Requests. Requests are passed to the API by using JSON objects to the API endpoints with the appropriate parameters. The documentation for each API call will contain more detail on the parameters accepted by the call.</p>
+  <p>All responses are sent JSON-encoded. The specific responses (successful ones) are described in the documentation section for each method. See http://en.wikipedia.org/wiki/Json for more information on JSON.</p>
+  <p>All input strings should be UTF-8 encoded, our response is always UTF-8 encoded.</p>
   {% for path in site.data.api-swagger.paths %}
-    <h1>{{ path[0] }}</h1>
     {% for m in path[1] %}
       {% assign method_name = m[0] %}
       {% assign method = m[1] %}
-      <h2>{{ method_name }}</h2>
+
+      {% capture method_id %}{{method_name}}{{ path[0] }}{% endcapture %}
+      <a href="#" onclick="toggleDisplay('{{ method_id }}');"><h2><span class="{{ method_name }}_endpoint">{{ method_name }}:</span> {{ path[0] }}</h2></a>
+      <div id="{{ method_name }}{{ path[0] }}">
+      <h3>Description</h3>
       <p>{{ method.description }}</p>
 
       <!-- Begin Parameter section -->
@@ -180,6 +187,8 @@ layout: default
       {% endif %}
       <!-- End Response section -->
     {% endfor %}
+  </div>
+  <script>setDisplayNone('{{ method_id }}');</script> <!-- Hide Endpoint detail by default (only when JS is enabled) -->
   {% endfor %}
 
   {% comment %}<p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p> {% endcomment %}
