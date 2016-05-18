@@ -29,7 +29,7 @@ layout: default
       {% assign method = m[1] %}
 
       {% capture method_id %}{{method_name}}{{ path[0] }}{% endcapture %}
-      <a href="#" onclick="toggleDisplay('{{ method_id }}');"><h2><span class="{{ method_name }}_endpoint">{{ method_name }}:</span> {{ path[0] }}</h2></a>
+      <a href="#" onclick="toggleDisplay('{{ method_id }}');"><h2><span class="{{ method_name }}_endpoint">{{ method_name | upcase }}:</span> {{ path[0] }}</h2></a>
       <div id="{{ method_name }}{{ path[0] }}">
       <h3>Description</h3>
       <p>{{ method.description }}</p>
@@ -171,7 +171,7 @@ layout: default
 
       <!-- Begin Response section -->
       {% if method.responses | first %}
-        <h4>Responses</h4>
+        <h3>Responses</h3>
         <table>
           <tbody>
           {% for r in method.responses %}
