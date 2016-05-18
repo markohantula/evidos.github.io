@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How to create a tranaction with fillable form fields"
+title: "How to create a transaction with fillable form fields"
 date: 2016-04-21 00:00:00 +0000
 categories: api howto formfields
 ---
@@ -8,7 +8,7 @@ categories: api howto formfields
 ## How-to create a transaction with fillable form fields
 
 During the signing flow we display the PDF document to the end user so the user can read an approve (or disapprove) the document.
-We didn't provide the option for the user to fill in specific parts in the displayed document. 
+We didn't provide the option for the user to fill in specific parts in the displayed document.
 
 For example, maybe you don't have all the information available of the end user during your PDF creation process.
 Yet, you want the end user to sign the document, but fill in the missing pieces at the same time as well, e.g. their address details.
@@ -26,8 +26,8 @@ Contact [us](mailto:support@signhost.com?subject=PDF and formfields) if you need
 1. Create a transaction
 2. Add document meta data
 3. Add document
-4. Start the transaciton
- 
+4. Start the transaction
+
 
 
 ### Create a transaction
