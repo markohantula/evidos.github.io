@@ -19,6 +19,7 @@ permalink: /basic-information/
       </li>
     {% endfor %}
   </ul>
+
   <h1>{{ page.title }}</h1>
   <p>The Signhost API is RESTful and HTTP-based. Basically, this means that the communication is made through normal HTTP requests.</p>
   <p>Required steps to create a transaction:</p>
@@ -27,8 +28,10 @@ permalink: /basic-information/
     <li>Upload the documents you want to be signed by performing a <a href="/">PUT api/transaction/{transactionId}/file/{fileId}</a>. Repeat for each file.</li>
     <li>Finally start the transaction with <a href="/">PUT api/transaction/{transactionId}/start</a></li>
   </ol>
+
   <h2>Server Address</h2>
   <p>The REST gateway BaseURL is: https://api.signhost.com/api/</p>
+
   <h2>Security</h2>
   <p>We require that all requests are done over SSL.</p>
   <h3>Authorization</h3>
@@ -39,20 +42,28 @@ Application: APPKey ApplicationName 6kDtzzEoHKmmc2dqnkIqfIQaoKQTdFj1Wl7ZQNsDHR8=
 Authorization: APIKey 426b4a90907f0fecc69334686a2576668d00a6d6b8c897b949f2faaca0965d66
 Accept: */*
 Connection: keep-alive</pre>
+
   <h2>Direct or invite SignRequest</h2>
   <p>With the Signhost API it is possible to facilitate two different signing flows to the signer.</p>
   <p><strong>Invite flow;</strong> Signhost API will send a SignRequest by email to the signer and will facilitate the workflow process for sending reminder emails and the signed result.</p>
   <p><strong>The direct flow;</strong> The Signhost API returns a URL you will be able to directly redirect the signer on your portal or send the signer a message with the signing link yourself.</p>
   <p>When you create a transaction the Inviteflow is initiated setting the SendSignRequest parameter TRUE during the POST api/transaction.</p>
+
   <h2>Specify signature location</h2>
+  <p>We provide two ways to specify the location for the signatures.</p>
+  <h3>Signer tag</h3>
   <p>In our API it is possible to specify the signature location in the PDF document. When you create the PDF that needs to be signed you can include the tag {% raw %}{{Signer1}}, {{Signer2}}{% endraw %}, etc.. at the location you want the signature displayed.</p>
-  <p>If you do not want to show a {% raw %}{{Signer}}{% endraw %} tag in your document you can give the tag the background colour of your document, in general this is the colour white.
+  <p>If you do not want to show a {% raw %}{{Signer}}{% endraw %} tag in your document you can give the tag the background colour of your document, in general this is the colour white.</p>
   <p>Although PDF is a document standard we strongly recommend to test the signer location and {% raw %}{{Signer}}{% endraw %} tag to see if the location is correct.</p>
   <p>Please be aware that including a lot of {% raw %}{{Signer}}{% endraw %} tags will have an impact on the performance and signature validation process. For a digital signature we do not recommend to include a signature on every page.
     If you do not include the {% raw %}{{Signer}}{% endraw %} tag we will use the default signing location; top right on the first page.</p>
-  </p>
+  <h3>Signature fields</h3>
+  <p>A second method of specifying the signature location is with the use of pdf signature fields. To make sure that the signature fields are reconized they have to be named a specific pattern: Signature-x_y. Where the x stands for the signer and the y for the signature number.</p>
+  <p>For example: Signature-1_2 will specify the place for the second signature of the first signer.</p>
+
   <h2>Formats</h2>
 	<p>JSON results which contain a date, time or datetime property are formatted according to <a href="http://www.iso.org/iso/iso8601">ISO8601</a>. A short explanation of the format is availble at <a href="http://www.w3.org/TR/NOTE-datetime">w3.org - Date and Time Formts</a>.</p>
+
   <h2>Return codes</h2>
 	<p>Our REST API uses the standard <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">HTTP/1.1 status codes</a> to return the status of your request. In short this means that any status code in the range of:</p>
 	<ul>
@@ -60,6 +71,7 @@ Connection: keep-alive</pre>
 		<li><b>4xx</b> (eg 400 bad request, invalid email address) there is an error in your request. You must not retry this request unless you have corrected the error;</li>
 		<li><b>5xx</b> (eg 500) there was an error on our side. You may retry this request at a later time. If you implement a retry policy you should use a backoff policy.</li>
 	</ul>
+
   <h2>Return URL Parameters</h2>
   <p>When the user signs or rejects the transaction we will redirect the browser to the return URL. The returnURL will contain the following parameters:<br> ?sh_id=transactionid&status=status_of_transaction&reference=your_reference</p>
   <h2>Handy tools</h2>
