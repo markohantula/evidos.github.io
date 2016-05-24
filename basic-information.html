@@ -60,6 +60,8 @@ Connection: keep-alive</pre>
 		<li><b>4xx</b> (eg 400 bad request, invalid email address) there is an error in your request. You must not retry this request unless you have corrected the error;</li>
 		<li><b>5xx</b> (eg 500) there was an error on our side. You may retry this request at a later time. If you implement a retry policy you should use a backoff policy.</li>
 	</ul>
+  <h2>Return URL Parameters</h2>
+  <p>When the user signs or rejects the transaction we will redirect the browser to the return URL. The returnURL will contain the following parameters:<br> ?sh_id=transactionid&status=status_of_transaction&reference=your_reference</p>
   <h2>Handy tools</h2>
     <ul>
         <li><a href="http://requestb.in/" target="_blank">RequestBin</a> for testing the postback.</li>
