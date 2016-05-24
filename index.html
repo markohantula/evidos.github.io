@@ -29,7 +29,7 @@ layout: default
       {% assign method = m[1] %}
 
       {% capture method_id %}{{method_name}}{{ path[0] }}{% endcapture %}
-      <a href="javascript:void(0)" onclick="toggleDisplay('{{ method_id }}');"><h2><span class="{{ method_name }}_endpoint">{{ method_name | upcase }}:</span> {{ path[0] }}</h2></a>
+      <h2><span class="{{ method_name }}_endpoint">{{ method_name | upcase }}:</span> {{ path[0] }}</h2>
       <div id="{{ method_name }}{{ path[0] }}">
       <h3>Description</h3>
       <p>{{ method.description }}</p>
@@ -189,7 +189,6 @@ layout: default
       <!-- End Response section -->
     {% endfor %}
   </div>
-  <script>setDisplayNone('{{ method_id }}');</script> <!-- Hide Endpoint detail by default (only when JS is enabled) -->
   {% endfor %}
 
   {% comment %}<p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p> {% endcomment %}
