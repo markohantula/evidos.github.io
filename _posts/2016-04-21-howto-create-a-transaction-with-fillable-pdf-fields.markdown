@@ -2,7 +2,9 @@
 layout: post
 title: "How to create a transaction with fillable form fields"
 date: 2016-04-21 00:00:00 +0000
-categories: api howto formfields
+categories: api howto
+tags:
+- formfields
 ---
 
 ## How-to create a transaction with fillable form fields

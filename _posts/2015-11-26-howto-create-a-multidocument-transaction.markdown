@@ -2,7 +2,9 @@
 layout: post
 title:  "How to create a multi document transaction"
 date:   2015-11-26 00:00:00 +0000
-categories: api howto multidoc
+categories: api howto
+tags:
+- multidoc
 ---
 
 ## How-to start a multi document transaction
