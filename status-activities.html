@@ -1,23 +1,9 @@
 ---
-layout: default
+layout: page
+title: Statuses & Activities
+permalink: /status-activity/
 ---
-
-<div class="home">
-
-  <h1 class="page-heading">Posts</h1>
-
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
-
+  <p>Some of our endpoints return both the status of the transaction and signer activities. A list of all the statuses as well as a list of all the activities can be found below.</p>
   <h2>Transaction Statuses</h2>
   <table>
     <tbody>
@@ -42,5 +28,3 @@ layout: default
     </tbody>
   </table>
   {% comment %}<p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p> {% endcomment %}
-
-</div>
