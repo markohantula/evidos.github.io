@@ -44,7 +44,7 @@ permalink: /endpoints/
           </tr>
         {% endfor %}
         </tbody>
-      </table></br>
+      </table>
       {% endif %}
       <!-- End Parameter section -->
 
@@ -70,7 +70,7 @@ permalink: /endpoints/
           </tr>
           {% endfor %}
         </tbody>
-      </table></br>
+      </table>
 
       <!-- Begin Request body object definition section -->
 
@@ -106,7 +106,7 @@ permalink: /endpoints/
       {% endfor %}
 
        </tbody>
-      </table></br>
+      </table>
       {% endif %}
 
       <!-- Array Objects -->
@@ -145,7 +145,7 @@ permalink: /endpoints/
       {% endfor %}
 
        </tbody>
-      </table></br>
+      </table>
       {% endif %}
 
       {% endfor %}
@@ -173,6 +173,38 @@ permalink: /endpoints/
         </table>
       {% endif %}
       <!-- End Response section -->
+
+      <!-- Begin example section -->
+      {% for endpoint in site.data.endpoint_examples %}
+        {% capture endpoint_name %}{{ method_name }}{{ path[0] }}{% endcapture %}
+        {% if endpoint[0] == endpoint_name %}
+        <h3>Example</h3>
+          {% for example in endpoint[1] %}
+          <strong>Request:</strong>
+            <div class="dynamic-max-height" data-maxheight="132" data-button-more="Show more" data-button-less="Show less">
+              <div class="dynamic-wrap">
+                <pre>{{ example.curl_request }}</pre>
+              </div>
+            </div>
+            {% if example.response_information != null || example.json_response != null %}
+              <strong>Response:</strong>
+            {% endif %}
+            {% if example.response_information != null %}
+              <p>{{ example.response_information }}</p>
+            {% endif %}
+            {% if example.json_response != null %}
+              <div class="dynamic-max-height" data-maxheight="132" data-button-more="Show more" data-button-less="Show less">
+                <div class="dynamic-wrap">
+                  {% assign json_response = example.json_response %}
+                  <pre>{% include /endpoint_responses/{{json_response}} %}</pre>
+                </div>
+              </div>
+            {% endif%}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+      <!-- End example section -->
+
     {% endfor %}
   </div>
   {% endfor %}

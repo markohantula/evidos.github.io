@@ -33,7 +33,7 @@ paths:
                 type: dateTime
         '401':
           description: Not authorized to access the specified transaction
-  '/api/transaction/{transactionId}/file/{fileId} ':
+  '/api/transaction/{transactionId}/file/{fileId}/':
     get:
       description: Returns the (signed) document(s).
       parameters:
