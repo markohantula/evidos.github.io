@@ -242,6 +242,15 @@ paths:
           description: File succesfully created and added to the transaction
         '204':
           description: Existing file replaced within the specified transaction
+  '/api/transaction/{transactionId}/start':
+    put:
+      description: Starts a transaction with the same {transactionId}
+      parameters:
+        - name: transactionId
+          description: ID of an existing -- not yet started -- transaction
+          in: path
+          required: true
+          type: string
   '/delete/transaction/{transactionId}':
     delete:
       description: Delete a transaction  by a transaction id.
