@@ -138,7 +138,7 @@ paths:
                       type: boolean
                     SignRequestMessage:
                       required: SendSignRequest
-                      description: The message of the sign request in plan text (no HTML).
+                      description: The message of the sign request in plain text (no HTML).
                       type: string
                     SendSignConfirmation:
                       required: false
@@ -184,7 +184,7 @@ paths:
                     Email:
                       type: string
                       required: true
-                      description: The E-mail address of the reveiver.
+                      description: The e-mail address of the reveiver.
                     Language:
                       type: string
                       required: false
@@ -264,4 +264,4 @@ paths:
               Reason:
                 type: string
                 required: false
-                description: The reason of canncellation.
+                description: The reason of cancellation.
