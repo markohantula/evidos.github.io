@@ -75,6 +75,15 @@ Our REST API uses the standard [HTTP/1.1 status codes](http://www.w3.org/Protoco
 When the user signs or rejects the transaction we will redirect the browser to the return URL. The returnURL will contain the following parameters:  
 ?sh_id=transactionid&status=status_of_transaction&reference=your_reference
 
+## Libraries & demos
+
+There are a few libraries and demos available to make connecting to out API easier.
+
+*   [.Net Client Library](https://github.com/Evidos/SignhostClientLibrary)
+*   [PHP Demo Client](https://github.com/Evidos/signhost-phpdemoclient)
+*   [Java Client Library](https://github.com/Evidos/OndertekenenDemo-Java)
+*   [SignHost Ruby Gem](https://rubygems.org/gems/sign_host)
+
 ## Handy tools
 
 *   [RequestBin](http://requestb.in/) for testing the postback.
