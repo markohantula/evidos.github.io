@@ -22,11 +22,11 @@ We require that all requests are done over SSL.
 
 To authenticate you have to add two HTTP headers to every request you make. The first header includes the name "Application" with the value "APPKey [the app key]". The second header includes the name "Authorization" with the value "APIKey [your api key]". Below you find a HTTP request header example:
 
-  Content-Type: application/json
-  Application: APPKey ApplicationName 6kDtzzEoHKmmc2dqnkIqfIQaoKQTdFj1Wl7ZQNsDHR8=
-  Authorization: APIKey 426b4a90907f0fecc69334686a2576668d00a6d6b8c897b949f2faaca0965d66
-  Accept: */*
-  Connection: keep-alive
+    Content-Type: application/json
+    Application: APPKey ApplicationName 6kDtzzEoHKmmc2dqnkIqfIQaoKQTdFj1Wl7ZQNsDHR8=
+    Authorization: APIKey 426b4a90907f0fecc69334686a2576668d00a6d6b8c897b949f2faaca0965d66
+    Accept: */*
+    Connection: keep-alive
 
 ## Direct or invite SignRequest
 
