@@ -71,13 +71,6 @@ paths:
           schema:
             type: object
             properties:
-              File:
-                type: object
-                description: The file information.
-                properties:
-                  Name:
-                    type: string
-                    description: The name of the file
               Seal:
                 type: boolean
                 default: true
