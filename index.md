@@ -22,11 +22,11 @@ We require that all requests are done over SSL.
 
 To authenticate you have to add two HTTP headers to every request you make. The first header includes the name "Application" with the value "APPKey [the app key]". The second header includes the name "Authorization" with the value "APIKey [your api key]". Below you find a HTTP request header example:
 
-  Content-Type: application/json
-  Application: APPKey ApplicationName 6kDtzzEoHKmmc2dqnkIqfIQaoKQTdFj1Wl7ZQNsDHR8=
-  Authorization: APIKey 426b4a90907f0fecc69334686a2576668d00a6d6b8c897b949f2faaca0965d66
-  Accept: */*
-  Connection: keep-alive
+    Content-Type: application/json
+    Application: APPKey ApplicationName 6kDtzzEoHKmmc2dqnkIqfIQaoKQTdFj1Wl7ZQNsDHR8=
+    Authorization: APIKey 426b4a90907f0fecc69334686a2576668d00a6d6b8c897b949f2faaca0965d66
+    Accept: */*
+    Connection: keep-alive
 
 ## Direct or invite SignRequest
 
@@ -54,19 +54,19 @@ Please be aware that including a lot of {% raw %}{{Signer}}{% endraw %} tags wil
 
 ### Signature fields
 
-A second method of specifying the signature location is with the use of pdf signature fields. To make sure that the signature fields are reconized they have to be named a specific pattern: Signature-x_y. Where the x stands for the signer and the y for the signature number.
+A second method of specifying the signature location is with the use of pdf signature fields. To make sure that the signature fields are recognized they have to be named a specific pattern: Signature-x_y. Where the x stands for the signer and the y for the signature number.
 
 For example: Signature-1_2 will specify the place for the second signature of the first signer.
 
 ## Formats
 
-JSON results which contain a date, time or datetime property are formatted according to [ISO8601](http://www.iso.org/iso/iso8601). A short explanation of the format is availble at [w3.org - Date and Time Formts](http://www.w3.org/TR/NOTE-datetime).
+JSON results which contain a date, time or datetime property are formatted according to [ISO8601](http://www.iso.org/iso/iso8601). A short explanation of the format is available at [w3.org - Date and Time Formts](http://www.w3.org/TR/NOTE-datetime).
 
 ## Return codes
 
 Our REST API uses the standard [HTTP/1.1 status codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) to return the status of your request. In short this means that any status code in the range of:
 
-*   **2xx** (eg 200) your request was succesfull;
+*   **2xx** (eg 200) your request was successful;
 *   **4xx** (eg 400 bad request, invalid email address) there is an error in your request. You must not retry this request unless you have corrected the error;
 *   **5xx** (eg 500) there was an error on our side. You may retry this request at a later time. If you implement a retry policy you should use a backoff policy.
 
