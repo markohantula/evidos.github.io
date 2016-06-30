@@ -1,16 +1,14 @@
 ---
-layout: page
-title: Basic Information
-permalink: /basic-information/
+layout: frontpage
 ---
 
 The Signhost API is RESTful and HTTP-based. Basically, this means that the communication is made through normal HTTP requests.
 
 Required steps to create a transaction:
 
-1.  Create a new transaction with [POST api/transaction](/)
-2.  Upload the documents you want to be signed by performing a [PUT api/transaction/{transactionId}/file/{fileId}](/). Repeat for each file.
-3.  Finally start the transaction with [PUT api/transaction/{transactionId}/start](/)
+1.  Create a new transaction with [POST api/transaction](/endpoints#post/api/transaction)
+2.  Upload the documents you want to be signed by performing a [PUT api/transaction/{transactionId}/file/{fileId}](/endpoints#put/api/transaction/{transactionId}/file/{fileId}). Repeat for each file.
+3.  Finally start the transaction with [PUT api/transaction/{transactionId}/start](/endpoints#put/api/transaction/{transactionId}/start)
 
 ## Server Address
 
