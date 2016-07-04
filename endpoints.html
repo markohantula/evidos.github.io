@@ -138,7 +138,11 @@ permalink: /endpoints/
             {% endif %}
             {% endif %}
           </td>
-          <td>{{ innerobjectproperty.description }}</td>
+          <td>{{ innerobjectproperty.description }}
+            {% if innerobjectproperty.example != null %}
+            <em>example: {{ innerobjectproperty.example }}</em>
+            {% endif %}
+          </td>
         </tr>
 
       {% endfor %}

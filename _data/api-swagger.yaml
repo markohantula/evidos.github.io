@@ -89,6 +89,7 @@ paths:
                       type: string
                       required: RequireSmsVerification
                       description: The mobile phone number of the signer
+                      example: "+31123456789"
                     Iban:
                       type: string
                       required: RequireIdealVerification
