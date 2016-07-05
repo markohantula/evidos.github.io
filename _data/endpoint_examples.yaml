@@ -1,0 +1,80 @@
+get/api/transaction/{transactionId}:
+  - example:
+    curl_request: |
+      curl \
+        -H "Authorization: APIKey 0123456789abcdef" \
+        -H "Application: APPKey yourclient fedcba0123456789" \
+        https://api.signhost.com/api/transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57
+    json_response: get_api_transaction_transactionId.json
+    response_information: This method returns a transaction.
+get/api/transaction/{transactionId}/file/{fileId}/:
+  - example:
+    curl_request: |
+      curl \
+        -H "Authorization: APIKey 0123456789abcdef" \
+        -H "Application: APPKey yourclient fedcba0123456789" \
+        https://api.signhost.com/api/transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57/file/Contract.pdf
+get/api/file/receipt/{transactionId}:
+  - example:
+    curl_request: |
+      curl \
+        -H "Authorization: APIKey 0123456789abcdef" \
+        -H "Application: APPKey yourclient fedcba0123456789" \
+        https://api.signhost.com/api/file/receipt/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57
+post/api/transaction:
+  - example:
+    curl_request: |
+      curl \
+      -H "Authorization: APIKey 0123456789abcdef" \
+      -H "Application: APPKey yourclient fedcba0123456789" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "Signers": [
+          {
+            "Email": "user@example.com",
+            "RequireScribble": true,
+            "SendSignRequest": true,
+            "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",
+            "DaysToRemind": 15,
+            "ScribbleName": "John Doe",
+            "ScribbleNameFixed": false
+          }
+          ],
+          "SendEmailNotifications": true
+          }'
+          https://api.signhost.com/api/transaction/
+    json_response: post_api_transaction.json
+    response_information: This method returns the newly created transaction.
+put/api/transaction/{transactionId}/file/{fileId}:
+  - example:
+    curl_request: |
+      curl \
+        -H "Authorization: APIKey 0123456789abcdef" \
+        -H "Application: APPKey yourclient fedcba0123456789" \
+        -H "SH-DisplayName: Your personal contract" \
+        -H "Content-Type: application/pdf" \
+      -XPUT \
+        -T Contract.pdf \
+      https://api.signhost.com/api/transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57/file/Contract.pdf
+put/api/transaction/{transactionId}/start:
+  - example:
+    curl_request: |
+      curl \
+        -H "Authorization: APIKey 0123456789abcdef" \
+        -H "Application: APPKey yourclient fedcba0123456789" \
+        https://api.signhost.com/api.transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57/start
+delete/delete/transaction/{transactionId}:
+  - example:
+    curl_request: |
+      curl \
+        -H "Authorization: APIKey 0123456789abcdef" \
+        -H "Application: APPKey yourclient fedcba0123456789" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "SendNotifications": true
+          "Reason": "This document is out-dated"
+          }'
+        -X DELETE
+        https://api.signhost.com/api/transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57
+    json_response: delete_delete_transaction_transactionId.json
+    response_information: This method returns the cancelled transaction.
