@@ -185,7 +185,7 @@ paths:
                       description: The language of the receiver, only de-DE, en-US, es-ES, fr-FR, it-IT and nl-NL are allowed.
                     Message:
                       type: string
-                      required: false
+                      required: true
                       description: The email message towards the receiver. Plain text (no HTML).
                     Reference:
                       type: string
