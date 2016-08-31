@@ -3,7 +3,6 @@ layout: page
 title: Endpoints
 permalink: /endpoints/
 ---
-
 <div class="home">
   <p>You can make HTTP GET, POST or PUT Requests. Requests are passed to the API by using JSON objects to the API endpoints with the appropriate parameters. The documentation for each API call will contain more detail on the parameters accepted by the call.</p>
   <p>All responses are sent JSON-encoded. The specific responses (successful ones) are described in the documentation section for each method. See <a href="http://en.wikipedia.org/wiki/Json">http://en.wikipedia.org/wiki/Json</a> for more information on JSON.</p>
@@ -70,7 +69,8 @@ permalink: /endpoints/
         <thead>
           <tr>
             <th>Name</th>
-            <th>type</th>
+            <th>Type</th>
+            <th>Default</th>
             <th>Description</th>
         </thead>
         <tbody>
@@ -80,6 +80,7 @@ permalink: /endpoints/
           <tr>
             <td>{{ objectproperty_name }}</td>
             <td>{{ objectproperty.type }}</td>
+            <td>{{ objectproperty.default }}</td>
             <td>{{ objectproperty.description }}</td>
           </tr>
           {% endfor %}
@@ -101,7 +102,8 @@ permalink: /endpoints/
       <thead>
         <tr>
           <th>Name</th>
-          <th>type</th>
+          <th>Type</th>
+          <th>Default</th>
           <th>Description</th>
       </thead>
         <tbody>
@@ -114,6 +116,7 @@ permalink: /endpoints/
         <tr>
           <td>{{ innerobjectproperty_name }}</td>
           <td>{{ innerobjectproperty.type }} <em>{{ innerobjectproperty.required }}</em></td>
+          <td>{{ innerobjectproperty.default }}</td>
           <td>{{ innerobjectproperty.description }}</td>
         </tr>
 
@@ -131,7 +134,8 @@ permalink: /endpoints/
       <thead>
         <tr>
           <th>Name</th>
-          <th>type</th>
+          <th>Type</th>
+          <th>Default</th>
           <th>Description</th>
       </thead>
         <tbody>
@@ -153,6 +157,7 @@ permalink: /endpoints/
             {% endif %}
             {% endif %}
           </td>
+          <td>{{ innerobjectproperty.default }}</td>
           <td>{{ innerobjectproperty.description }}
             {% if innerobjectproperty.example != null %}
             <em>example: {{ innerobjectproperty.example }}</em>

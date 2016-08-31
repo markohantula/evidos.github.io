@@ -85,6 +85,7 @@ paths:
                       type: string
                       required: true
                       description: The e-mail address of the signer
+                      example: "john.doe@example.com"
                     Mobile:
                       type: string
                       required: RequireSmsVerification
@@ -94,10 +95,12 @@ paths:
                       type: string
                       required: RequireIdealVerification
                       description: The IBAN of the signer
+                      example: "NL13TEST0123456789"
                     BSN:
                       type: string
                       required: RequireDigiDVerification
                       description: The BSN of the signer
+                      example: "900078479"
                     SignRequestMessage:
                       required: true
                       description: The message - in plain text - of the sign request.
@@ -105,30 +108,37 @@ paths:
                     RequireScribble:
                       required: false
                       description: Require that the signer has to draw a scribble.
+                      default: false
                       type: boolean
                     RequireSmsVerification:
                       required: false
                       description: Require that the signer has to verify by sms.
+                      default: false
                       type: boolean
                     RequireIdealVerification:
                       required: false
                       description: Require that the signer has to verify by iDeal.
+                      default: false
                       type: boolean
                     RequireDigiDVerification:
                       required: false
                       description: Require that the signer has to verify by DigiD.
+                      default: false
                       type: boolean
                     RequireKennisnetVerification:
                       required: false
                       description: Require that the signer has to verify by Kennisnet.
+                      default: false
                       type: boolean
                     RequireSurfnetVerification:
                       required: false
                       description: Require that the signer has to verify by Surfnet.
+                      default: false
                       type: boolean
                     SendSignRequest:
                       required: false
                       description: Send a sign invitation to the signer his e-mail address.
+                      default: false
                       type: boolean
                     SignRequestMessage:
                       required: SendSignRequest
@@ -137,10 +147,12 @@ paths:
                     SendSignConfirmation:
                       required: false
                       description: Send the sign confirmation to the signer his e-mail address.
+                      default: SendSignRequest
                       type: boolean
                     Language:
                       required: false
                       description: The language of the receiving user, only de-DE, en-US, es-ES, fr-FR, it-IT and nl-NL are allowed.
+                      default: nl-NL
                       type: string
                     ScribbleName:
                       required: false
@@ -149,15 +161,17 @@ paths:
                     ScribbleNameFixed:
                       required: false
                       description: The switch to allow or disallow the signer to modify the ScribbleName in the scribble form.
+                      default: false
                       type: boolean
                     DaysToRemind:
                       required: false
                       description: Amount of days before reminding the signers. -1 to disable reminders.
+                      default: 7
                       type: integer
                     Expires:
                       required: false
                       description: When set the signer is no longer allowed to sign the transaction after this date.
-                      type: dateTime
+                      type: DateTime
                     Reference:
                       required: false
                       description: The reference of the signer.
@@ -165,6 +179,7 @@ paths:
                     ReturnUrl:
                       required: false
                       description: The url to redirect the user to after signing, rejecting or cancelling.
+                      default: http://signhost.com
                       type: string
               Receivers:
                 type: array
@@ -183,6 +198,7 @@ paths:
                       type: string
                       required: false
                       description: The language of the receiver, only de-DE, en-US, es-ES, fr-FR, it-IT and nl-NL are allowed.
+                      default: nl-NL
                     Message:
                       type: string
                       required: true
@@ -201,14 +217,17 @@ paths:
               SignRequestMode:
                 type: int
                 description: Set to 1 for sending at once, to 2 for sequential.
+                default: 2
               DaysToExpire:
                 type: int
                 required: false
                 description: Amount of days before expiration. Max 90 days.
+                default: 60
               SendEmailNotifications:
                 type: boolean
                 required: false
                 description: Send e-mail notifications to the sender.
+                default: false
               Context:
                 type: object
                 description: Any valid json object which we will return back to you when doing a GET on the transaction or when we send a postback.
@@ -263,7 +282,8 @@ paths:
               SendNotifications:
                 type: boolean
                 required: false
-                description: Send e-mail notifications to the awaiting signers. Default is false.
+                description: Send e-mail notifications to the awaiting signers.
+                default: false
               Reason:
                 type: string
                 required: false
