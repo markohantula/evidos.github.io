@@ -100,4 +100,16 @@ As you may have noticed the “pipe” sign ( &#124; ) is used as the delimiter 
       "ModifiedDateTime": "2016-06-15T23:33:04.1965465+02:00",
       "Context": null
     }
+  ],
+  "Reference": "Contract #123",
+  "PostbackUrl": "http://example.com/postback.php",
+  "SignRequestMode": 2,
+  "DaysToExpire": 30,
+  "SendEmailNotifications": true,
+  "CreatedDateTime": "2016-08-31T21:22:56.2467731+02:00",
+  "ModifiedDateTime": "2016-08-31T21:22:56.2467731+02:00",
+  "CanceledDateTime": null,
+  "Context": null,
+  "Checksum": "b5a99e1de5b9e0e9915df09d3b819be188dae900"
+}
 ```
