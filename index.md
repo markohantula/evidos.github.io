@@ -84,6 +84,16 @@ Our REST API uses the standard [HTTP/1.1 status codes](http://www.w3.org/Protoco
 When the user signs or rejects the transaction we will redirect the browser to the return URL. The returnURL will contain the following parameters:  
 ?sh_id=transactionid&status=status_of_transaction&reference=your_reference
 
+## Get signed document and receipt
+
+When the transaction is successfully signed (Status=30) you will be able to GET the signed document and receipt with a HTTP GET request to [api/file/document/{fileId}](/endpoints#get/api/transaction/{transactionId}/file/{fileId}/) or [api/file/receipt/{transactionId}](/endpoints#get/api/file/receipt/{transactionId}). Do not forget to add the authorization headers as well.
+
+For legal proof it is important to store both the signed document and the receipt.
+
+*   The Sender will receive the signed documents and receipt per mail when the **SendEmailNotification** is set to true.
+*   The Signers will receive the signed documents and receipt per mail when the **SendSignConfirmation** is set to true.
+*   The Receivers will always receive the signed documents and receipts per mail.
+
 ## Libraries & demos
 
 There are a few libraries and demos available to make connecting to out API easier.

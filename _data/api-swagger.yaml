@@ -47,7 +47,7 @@ paths:
           required: true
   '/api/file/receipt/{transactionId}':
     get:
-      description: Returns receipt.
+      description: Returns the receipt when the transaction is successfully signed (Status=30)
       parameters:
         - name: transactionId
           description: ID of the description
