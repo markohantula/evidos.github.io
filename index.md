@@ -96,7 +96,7 @@ For legal proof it is important to store both the signed document and the receip
 
 ## Libraries & demos
 
-There are a few libraries and demos available to make connecting to out API easier.
+There are a few libraries and demos available to make connecting to our API easier.
 
 *   [.Net Client Library](https://github.com/Evidos/SignhostClientLibrary)
 *   [PHP Demo Client](https://github.com/Evidos/signhost-phpdemoclient)
