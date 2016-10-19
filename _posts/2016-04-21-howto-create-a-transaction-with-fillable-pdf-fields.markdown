@@ -116,7 +116,7 @@ Example
     curl \
         -H "Authorization: APIKey 0123456789abcdef" \
         -H "Application: APPKey yourclient fedcba0123456789" \
-        -H "Content-Type: application/pdf" \
+        -H "Content-Type: application/json" \
         -XPUT \
         -d '{
             "DisplayName": "Your personal contract",
