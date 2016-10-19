@@ -30,14 +30,12 @@ activity:
     Message: Rejected
   - Number: 203
     Message: Signed
-  - Number: 290
-    Message: Redirected to return url
   - Number: 301
     Message: Signed document sent
   - Number: 302
     Message: Signed document opended
   - Number: 303
-    Message: Signed document donwloaded
+    Message: Signed document downloaded
   - Number: 401
     Message: Receipt sent
   - Number: 402

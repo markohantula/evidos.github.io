@@ -238,7 +238,7 @@ paths:
           description: Not authorized to create a transaction.
   '/api/transaction/{transactionId}/file/{fileId}':
     put:
-      description: Add a file to the transaction or overwrite an existing file with the same {fileId}
+      description: Add a file to the transaction or overwrite an existing file with the same {fileId}. Only PDF documents with Content-Type 'application/pdf' are accepted.
       parameters:
         - name: transactionId
           description: ID of an existing -- not yet started -- transaction
@@ -250,6 +250,10 @@ paths:
           in: path
           required: true
           type: string
+        - name: Content-Type
+          in: header
+          required: true
+          description: application/pdf
       responses:
         '201':
           description: File succesfully created and added to the transaction
