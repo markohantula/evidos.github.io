@@ -18,6 +18,15 @@
       "RequireDigidVerification": false,
       "RequireKennisnetVerification": false,
       "RequireSurfnetVerification": false,
+      "Verifications": [
+        {
+          "Type": "IPAddress",
+          "IPAddress": "203.0.113.5"
+        },
+        {
+          "Type": "iDIN"
+        }
+      ],
       "SendSignRequest": true,
       "SendSignConfirmation": null,
       "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",

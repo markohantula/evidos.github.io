@@ -162,6 +162,18 @@ permalink: /endpoints/
             {% if innerobjectproperty.example != null %}
             <em>example: {{ innerobjectproperty.example }}</em>
             {% endif %}
+
+            {% assign definition =  %}
+            {% if innerobjectproperty.items['$ref'] %}
+              {% assign definition = site.data.api-swagger %}
+            {% endif %}
+            {% assign refPath = innerobjectproperty.items['$ref'] | remove_first: '#/' | split: '/' %}
+            {% for r in refPath %}
+              {% assign definition_name = r %}
+              {% assign definition = definition[r] %}
+            {% endfor %}
+
+            {% include definition.html %}
           </td>
         </tr>
 

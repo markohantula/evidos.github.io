@@ -135,6 +135,12 @@ paths:
                       description: Require that the signer has to verify by Surfnet.
                       default: false
                       type: boolean
+                    Verifications:
+                      required: false
+                      description: List of verifications that the signer has to verify with.
+                      type: array
+                      items:
+                        $ref: '#/definitions/Verification'
                     SendSignRequest:
                       required: false
                       description: Send a sign invitation to the signer his e-mail address.
@@ -292,3 +298,20 @@ paths:
                 type: string
                 required: false
                 description: The reason of cancellation.
+
+definitions:
+  Verification:
+    type: object
+    discriminator: Type
+    properties:
+      Type:
+        type: string
+        enum:
+          - iDIN
+
+    required:
+    - Type
+
+  iDIN:
+    allOf:
+    - $ref: '#/definitions/Verification'
