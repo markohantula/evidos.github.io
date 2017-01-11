@@ -1,6 +1,28 @@
 {
   "Id": "67b9e140-b0f6-4c36-9b35-977041968185",
   "Status": 20,
+  "Files": {
+    "Contract.pdf": {
+      "Links": [
+        {
+          "Rel": "file",
+          "Type": "application/pdf",
+          "Link": "https://api.signhost.com/api/transaction/67b9e140-b0f6-4c36-9b35-977041968185/file/Contract.pdf"
+        }
+      ],
+      "DisplayName": "ArbeidsContract 2016"
+    },
+    "Algemenevoorwaarden": {
+      "Links": [
+        {
+          "Rel": "file",
+          "Type": "application/pdf",
+          "Link": "https://api.signhost.com/api/transaction/67b9e140-b0f6-4c36-9b35-977041968185/file/Algemenevoorwaarden"
+        }
+      ],
+      "DisplayName": "Algemene voorwaarden"
+    }
+  },
   "Seal": true,
   "Signers": [
     {

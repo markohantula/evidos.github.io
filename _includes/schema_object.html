@@ -1,0 +1,63 @@
+{% if include.level == 0 %}
+	<div id="#/definitions/{{include.prop_name}}">
+	<h3>{{ include.prop_name }}</h3>
+	<table>
+		<thead>
+			<tr>
+				<th colspan=9>Name
+				<th>Type
+				<th>Default
+				<th>Description
+
+	<tbody>
+{% endif %}
+
+	{% for prop in include.prop_schema.properties %}
+		
+		{% assign prop_name = prop[0] %}
+		{% assign prop_schema = prop[1] %}
+
+
+
+	<tr>
+		{% for d in (1..include.level) > 0 %}
+			<td class="indent ident{{include.level}}"></td>
+		{% endfor %}
+		<th colspan={{ 9 | minus: include.level }}>{{ prop_name }}
+			{% if prop_schema.readOnly %}
+				<em>readonly</em>
+			{% endif %}
+
+			{% for entry in include.prop_schema.required %}
+				{% if entry == prop_name %}
+					<em>required</em>{{prop_required}}
+				{% endif %}
+			{% endfor %}
+
+		<td>{{ prop_schema.type}} {{ prop_schema.format }}
+			{% if prop_schema.enum %}
+			(enum)
+			<ul>
+			{% for v in prop_schema.enum %}
+				<li>{{ v }}
+			{% endfor %}
+			{% endif %}
+			{% if prop_schema.additionalProperties %}
+			map of type 
+			<a href="#{{ prop_schema.additionalProperties["$ref"] | uri_escapce }}">{{ prop_schema.additionalProperties["$ref"] }}</a>
+			{% endif %}
+		<td>{{ prop_schema.default }}
+		<td>{{ prop_schema.description | markdownify }}
+
+	{% if prop_schema.items %}
+		{% assign child_level = include.level | plus: 1 %}
+		{% include schema_object.html level=child_level prop_schema=prop_schema.items %}
+	{% endif %}
+
+	{% endfor %}
+
+
+{% if include.level == 0 %}
+	</table>
+	</div>
+{% endif %}

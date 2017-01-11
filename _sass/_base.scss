@@ -85,7 +85,11 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: $base-font-weight;
 }
 
-
+div:target {
+  //box-shadow: #3da50a 2px 2px 5px;
+    outline: 5px solid #3da50a;
+    outline-offset: 5px;
+}
 
 /**
  * Links
@@ -223,13 +227,17 @@ th, td {
 
 tr:nth-child(even){background-color: #f2f2f2}
 
-th {
+thead > tr > th {
     background-color: $brand-color;
     color: white;
 }
 
 .indent {
   padding-left: 2em;
+}
+
+td.indent {
+    background-color: rgba(255,255,255,0.5);
 }
 
 em {

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Endpoints
+title: Endpoints & Model types
 permalink: /endpoints/
 ---
 <div class="home">
@@ -16,7 +16,8 @@ permalink: /endpoints/
       {% for m in path[1] %}
         {% assign method_name = m[0] %}
         {% assign method = m[1] %}
-        <li><a href="#{{ method_name }}{{ path[0] }}"><span class="{{ method_name }}_endpoint">{{ method_name | upcase }}:</span> {{ path[0] }}</a></li>
+        {% capture current_path %}#/paths/{{ path[0] }}/{{ method_name }}{% endcapture %}
+        <li><a href="#{{ current_path | uri_escape }}"><span class="{{ method_name }}_endpoint">{{ method_name | upcase }}:</span> {{ path[0] }}</a></li>
       {% endfor %}
     {% endfor %}
     </ul>
@@ -28,8 +29,9 @@ permalink: /endpoints/
       {% assign method_name = m[0] %}
       {% assign method = m[1] %}
 
-      {% capture method_id %}{{method_name}}{{ path[0] }}{% endcapture %}
-      <h2><span class="{{ method_name }}_endpoint" id="{{ method_name }}{{ path[0] }}">{{ method_name | upcase }}:</span> {{ path[0] }}</h2>
+      {% capture method_id %}#/paths/{{ path[0] }}/{{method_name}}{% endcapture %}
+      <div id="{{ method_id }}">
+      <h2><span class="{{ method_name }}_endpoint">{{ method_name | upcase }}:</span> {{ path[0] }}</h2>
       <h3>Description</h3>
       <p>{{ method.description }}</p>
 
@@ -53,6 +55,12 @@ permalink: /endpoints/
             <td>{{ p.in }}</td>
             <td>{{ p.required }}</td>
             <td>{{ p.description }}
+                {% if p.schema["$ref"] %}
+                  <a href="#{{ p.schema["$ref"] | uri_escape }}">
+                  {{ p.schema["$ref"] }}
+                  </a>
+                {% endif %}
+
           </td>
           </tr>
         {% endfor %}
@@ -78,10 +86,10 @@ permalink: /endpoints/
           {% assign objectproperty_name = prop[0] %}
           {% assign objectproperty = prop[1] %}
           <tr>
-            <td>{{ objectproperty_name }}</td>
-            <td>{{ objectproperty.type }}</td>
-            <td>{{ objectproperty.default }}</td>
-            <td>{{ objectproperty.description }}</td>
+            <td>{{ objectproperty_name }}
+            <td>{{ objectproperty.type }}
+            <td>{{ objectproperty.default }}
+            <td>{{ objectproperty.description }}
           </tr>
           {% endfor %}
         </tbody>
@@ -94,94 +102,6 @@ permalink: /endpoints/
       {% for property in p.schema.properties %}
       {% assign objectproperty_name = property[0] %}
       {% assign objectproperty = property[1] %}
-
-      {% if objectproperty.properties != null %}
-
-      <h4>{{ objectproperty_name }}</h4>
-      <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Default</th>
-          <th>Description</th>
-      </thead>
-        <tbody>
-
-      <!-- Access inner object properties -->
-      {% for objectproperty in objectproperty.properties %}
-      {% assign innerobjectproperty_name = objectproperty[0] %}
-      {% assign innerobjectproperty = objectproperty[1] %}
-
-        <tr>
-          <td>{{ innerobjectproperty_name }}</td>
-          <td>{{ innerobjectproperty.type }} <em>{{ innerobjectproperty.required }}</em></td>
-          <td>{{ innerobjectproperty.default }}</td>
-          <td>{{ innerobjectproperty.description }}</td>
-        </tr>
-
-      {% endfor %}
-
-       </tbody>
-      </table>
-      {% endif %}
-
-      <!-- Array Objects -->
-      {% if objectproperty.items.properties != null %}
-
-      <h4>{{ objectproperty_name }}</h4>
-      <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Default</th>
-          <th>Description</th>
-      </thead>
-        <tbody>
-
-      <!-- Access inner object properties -->
-      {% for objectproperty in objectproperty.items.properties %}
-      {% assign innerobjectproperty_name = objectproperty[0] %}
-      {% assign innerobjectproperty = objectproperty[1] %}
-
-      <!-- Table -->
-        <tr>
-          <td>{{ innerobjectproperty_name }}</td>
-          <td>{{ innerobjectproperty.type }}
-            {% if innerobjectproperty.required != false %}
-            {% if innerobjectproperty.required == true %}
-            <em>required</em>
-            {% else %}
-            <em>{{ innerobjectproperty.required }}</em>
-            {% endif %}
-            {% endif %}
-          </td>
-          <td>{{ innerobjectproperty.default }}</td>
-          <td>{{ innerobjectproperty.description }}
-            {% if innerobjectproperty.example != null %}
-            <em>example: {{ innerobjectproperty.example }}</em>
-            {% endif %}
-
-            {% assign definition =  %}
-            {% if innerobjectproperty.items['$ref'] %}
-              {% assign definition = site.data.api-swagger %}
-            {% endif %}
-            {% assign refPath = innerobjectproperty.items['$ref'] | remove_first: '#/' | split: '/' %}
-            {% for r in refPath %}
-              {% assign definition_name = r %}
-              {% assign definition = definition[r] %}
-            {% endfor %}
-
-            {% include definition.html %}
-          </td>
-        </tr>
-
-      {% endfor %}
-
-       </tbody>
-      </table>
-      {% endif %}
 
       {% endfor %}
       <!-- End Request body object definition section -->
@@ -200,9 +120,13 @@ permalink: /endpoints/
             {% assign response = r[1] %}
 
             <tr>
-              <th>{{ response_name }}</th>
-              <td>{{ response.description }}</td>
-            </tr>
+              <th>{{ response_name }}
+              <td>{{ response.description }}
+                {% if response.schema["$ref"] %}
+                  <a href="#{{ response.schema["$ref"] | uri_escape }}">
+                  {{ response.schema["$ref"] }}
+                  </a>
+                {% endif %}
           {% endfor %}
           </tbody>
         </table>
@@ -239,8 +163,24 @@ permalink: /endpoints/
         {% endif %}
       {% endfor %}
       <!-- End example section -->
-
+      </div>
     {% endfor %}
+  {% endfor %}
+
+
+  <h2>Models</h2>
+  <p>
+    These contain the type definitions as used by our API.
+    We do our best to keep our API backwards compatible as long as you use documented features only.
+    <em>Only use the types and properties documented. Don't use undocument properties you see in the returned JSON as they may be obsoleted properties and/or contain invalid data.</em>
+  </p>
+
+  {% for def in site.data.api-swagger.definitions %}
+  {% assign model_name = def[0] %}
+  {% assign model_schema = def[1] %}
+
+    {% include schema_object.html level=0 prop_name=model_name prop_schema=model_schema %}
+
   {% endfor %}
 
   {% comment %}<p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p> {% endcomment %}
