@@ -216,6 +216,7 @@ table {
     width: 100%;
     margin-bottom: 1em;
 }
+th,
 td {
   vertical-align: top;
 }
@@ -241,6 +242,11 @@ td.indent {
 }
 
 em {
+  color: #908f8f;  
+}
+
+th em,
+td em {
   display: block;
   font-style: normal;
   color: #908f8f;

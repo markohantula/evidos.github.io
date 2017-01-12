@@ -12,8 +12,20 @@
 	<tbody>
 {% endif %}
 
+	{% if include.prop_schema.additionalProperties and include.prop_schema.description %} 
+	<tr>
+		{% for d in (1..include.level) > 0 %}
+			<td class="indent ident{{include.level}}"></td>
+		{% endfor %}
+		<td colspan={{ 9 | minus: include.level }}>&lt;,&gt;
+		<td>{{ include.prop_schema.type }} map of type
+		<td>
+		<td>{{ include.prop_schema.description }}
+	</tr>
+	{% endif %}
+
 	{% for prop in include.prop_schema.properties %}
-		
+
 		{% assign prop_name = prop[0] %}
 		{% assign prop_schema = prop[1] %}
 
@@ -54,10 +66,32 @@
 		{% include schema_object.html level=child_level prop_schema=prop_schema.items %}
 	{% endif %}
 
+	{% if prop_schema.properties %}
+		{% assign child_level = include.level | plus: 1 %}
+		{% include schema_object.html level=child_level prop_schema=prop_schema %}
+	{% endif %}
+
+	<!-- Additional properties on property leve -->
+	{% if prop_schema.additionalProperties %}
+		{% assign child_level = include.level | plus: 1 %}
+		{% include schema_object.html level=child_level prop_schema=prop_schema.additionalProperties %}
+	{% endif %}
+
 	{% endfor %}
+
+	<!-- Additional properties on object level -->
+	{% if include.prop_schema.additionalProperties %}
+		{% assign child_level = include.level | plus: 1 %}
+		{% include schema_object.html level=child_level prop_schema=include.prop_schema.additionalProperties %}
+	{% endif %}
 
 
 {% if include.level == 0 %}
 	</table>
+
+	<div class="example">
+	{{ include.prop_schema.example | markdownify }}
+	</div>
+	
 	</div>
 {% endif %}

@@ -127,9 +127,12 @@ paths:
 
   '/api/transaction/{transactionId}/file/{fileId}':
     put:
-      description: Add a file to the transaction or overwrite an existing file with the same {fileId}. Only PDF documents with Content-Type 'application/pdf' are accepted.
+      description: |
+        Add a file to the transaction or overwrite an existing file with the same {fileId}.
+        Only PDF documents with Content-Type 'application/pdf' are accepted.
       consumes:
         - 'application/pdf'
+        - 'application/json'
       parameters:
         - name: transactionId
           description: ID of an existing -- not yet started -- transaction
@@ -141,11 +144,22 @@ paths:
           in: path
           required: true
           type: string
+        - name: file
+          description: |
+            File or file metadata.
+            When the Content-Type is 'application/pdf' we expect the body to contain a valid PDF document which is to be signed by one or more signers.
+            If you provide 'application/json' as a Content-Type we expect the body to contain a file meta data json.
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/FileMetaData"
       responses:
         '201':
           description: File succesfully created and added to the transaction
         '204':
           description: Existing file replaced within the specified transaction
+        '202':
+          description: File meta data accepted, waiting for actual file content
         '409':
           description: |
             Conflict while trying to overwrite the file.
@@ -172,6 +186,12 @@ definitions:
   Transaction:
     type: object
     properties:
+      Id:
+        readOnly: true
+        type: string
+        description: |
+          The id of the transaction.
+          Currently this property is read only but this may change in the feature.
       Files:
         readOnly: true
         type: object
@@ -190,6 +210,11 @@ definitions:
           required:
           - Email
           properties:
+            Id:
+              type: string
+              description: |
+                The id of the signer, must be unique within a transaction.
+                If you don't provide an id we will generate one for you.
             Email:
               type: string
               description: The e-mail address of the signer
@@ -456,7 +481,116 @@ definitions:
       Link:
         type: string
         description: Url containing the link to the file.
-        
+
+  FileMetaData:
+    type: object
+    properties:
+      DisplayName:
+        type: string
+        description: With what name we'll display the file to the signer
+      Signers:
+        type: object
+        description: |
+          Map of array of formsets. 
+          Each key should be a valid signer id.
+        additionalProperties:
+          type: object
+          properties:
+            FormSets:
+              type: array
+              description: List of formset keys to be assigned to this signer.
+              items:
+                type: string
+      FormSets:
+        type: object
+        description: |
+          Map of one or more form set definitions.
+          The key of the map will be the formset name.
+          The value will be the formset definition
+        additionalProperties:
+          type: object
+          description: |
+            Map of pdf field definitions
+            The key of the map will be the field name.
+            The value will be the definition of the field.
+          additionalProperties:
+            type: object
+            properties:
+              Type:
+                type: string
+                enum:
+                - Seal
+                - Signature
+                - Check
+                - SingleLine
+                description: |
+                  Field type to create.
+
+                  * Seal is not yet implemented, this will specify the properties of a seal.
+                  * Signature, specifies a signature field
+                  * Check, specifies a checkbox. You'll have to set the `value` property
+                  * SingleLine, specifies a single line textbox
+              Location:
+                type: object
+                description: Specify where the field should be placed within the document.
+                properties:
+                  Search:
+                    type: string
+                    description: The text to search in the pdf document to use as the position for the field. For example `{{Signer1}}`.
+                  Occurence:
+                    type: integer
+                    description: When using text search, only match this matched occurence.
+                  Top:
+                    type: integer
+                    description: Offset from the top of the search text or the page
+                  Right:
+                    type: integer
+                    description: Offset from the right of the search or the page
+                  Bottom:
+                    type: integer
+                    description: Offset from the bottom of the search or the page
+                  Left:
+                    type: integer
+                    description: Offset from the left of the search or the page
+                  Width:
+                    type: integer
+                    description: |
+                      The width of the field, can’t be used when both Left and Right are specified.
+                      For signature and seal fields we suggest a width of 140.
+                  Height:
+                    type: integer
+                    description: |
+                      The height of the field, can’t be used when both Bottom and Top are specified.
+                      For signature and seal fields we suggest a height of 70.
+                  PageNumber:
+                    type: integer
+                    description: On which page the field should be placed.
+    example: |
+      Simple example which performs a scan for the `{{Signer1}}` mustache tag 
+      and creates a Signature fields named SignatureOne on the found location(s).
+      
+      ```
+        {
+          "DisplayName": "Your personal contract",
+          "Signers": {
+            "SomeSignerId": {
+              "FormSets": [ "FirstFormset" ]
+            }
+          },
+          "FormSets": {
+            "FirstFormset": {
+              "SignatureOne": {
+                "Type": "Signature",
+                "Location": {
+                  "Search": "{{Signer1}}",
+                  "Width": 140,
+                  "Height": 70
+                }
+              }
+            }
+          }
+      }
+      ```
   ErrorModel:
     type: object
     properties:
