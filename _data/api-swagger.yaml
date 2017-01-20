@@ -191,7 +191,7 @@ definitions:
         type: string
         description: |
           The id of the transaction.
-          Currently this property is read only but this may change in the feature.
+          Currently this property is read only but this may change in the future.
       Files:
         readOnly: true
         type: object
