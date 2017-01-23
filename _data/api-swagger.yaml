@@ -42,7 +42,14 @@ paths:
         '401':
           description: Not authorized to access the specified transaction
     delete:
-      description: Delete a transaction by a transaction id.
+      description: |
+        Delete a transaction by a transaction id.
+        When a transaction is not in an end-state (such as fully signed) the transaction will be cancelled and cleaned.
+        A cancelled transaction can be told to send an e-mail notification to the awaiting signers that the transaction was cancelled.
+        The status of the transaction will be set to cancelled.
+        
+        When a transaction is in an end-state the transaction the transaction will be cleaned. 
+        The status of the transaction will remain the same but we will clean any uploaded documents and sensitive data as soon as possible.
       parameters:
         - name: transactionId
           type: string
@@ -67,7 +74,7 @@ paths:
         '200':
           description: The transaction is succesfully deleted
         '400':
-          description: The transaction could not be deleted. Most probable cause is that the transaction is already in an end state.
+          description: The transaction could not be deleted.
           schema:
             $ref: '#/definitions/ErrorModel'
             
