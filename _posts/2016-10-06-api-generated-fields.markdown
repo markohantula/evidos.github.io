@@ -23,45 +23,45 @@ First you will have to create a transaction. We'll use the same flow as in
 
 Example
 
-    curl \
-        -H "Authorization: APIKey 0123456789abcdef" \
-        -H "Application: APPKey yourclient fedcba0123456789" \
-        -H "Content-Type: application/json" \
-        -d '{
-          "Signers": [
-            {
-              "Email": "user@example.com",
-              "RequireScribble": true,
-              "SendSignRequest": true,
-              "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",
-              "DaysToRemind": 15,
-              "ScribbleName": "John Doe",
-              "ScribbleNameFixed": false
-            }
-        ],
-          "SendEmailNotifications": true
-        }'
-        https://api.signhost.com/api/transaction/
+	curl \
+		-H "Authorization: APIKey 0123456789abcdef" \
+		-H "Application: APPKey yourclient fedcba0123456789" \
+		-H "Content-Type: application/json" \
+		-d '{
+		  "Signers": [
+			{
+			  "Email": "user@example.com",
+			  "RequireScribble": true,
+			  "SendSignRequest": true,
+			  "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",
+			  "DaysToRemind": 15,
+			  "ScribbleName": "John Doe",
+			  "ScribbleNameFixed": false
+			}
+		],
+		  "SendEmailNotifications": true
+		}'
+		https://api.signhost.com/api/transaction/
 
 
 And you should receive a reply with at least the following content:
 
 ```json
 {
-    "Id": "SomeTransactionId",
-    "Status": 5,
-    "Signers": [
-        {
-           "Id": "SomeSignerId",
-           "Email": "user@example.com",
-           "RequireScribble": true,
-           "SendSignRequest": true,
-           "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",
-           "DaysToRemind": 15,
-           "ScribbleName": "John Doe",
-           "ScribbleNameFixed": false
-        }
-    ]
+	"Id": "SomeTransactionId",
+	"Status": 5,
+	"Signers": [
+		{
+		   "Id": "SomeSignerId",
+		   "Email": "user@example.com",
+		   "RequireScribble": true,
+		   "SendSignRequest": true,
+		   "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",
+		   "DaysToRemind": 15,
+		   "ScribbleName": "John Doe",
+		   "ScribbleNameFixed": false
+		}
+	]
 }
 ```
 
@@ -80,18 +80,35 @@ Content-Type  | application/json
 transactionId | id from the transaction as returned by Create a transaction
 filedId       | A unique id to be created at your side to identity the document. Could be your document filename.
 
+The following example creates two formset definitions.
+The first is named `SampleFormset` and contains 2 single line text fields and 1 signature field.
+The second `SecondSigner` only contains a signature field but is not used.
+We do recommend to use a width of 140 and a height of 70 for signature fields.
 
 ```json
 {
 	"DisplayName": "Your personal contract",
 	"Signers": {
 		"SomeSignerId": {
-			"FormSets": [ "FirstFormset" ]
+			"FormSets": [ "SampleFormset" ]
 		}
 	},
-
 	"FormSets": {
-		"FirstFormset": {
+		"SampleFormset": {
+			"AddressLine1": {
+				"Type": "SingleLine",
+				"Location": {
+					"Search": "Address line 1",
+					"Left": 100
+				}
+			},
+			"AddressLine2": {
+				"Type": "SingleLine",
+				"Location": {
+					"Search": "Address line 2",
+					"Left": 100
+				}
+			},
 			"SignatureOne": {
 				"Type": "Signature",
 				"Location": {
@@ -101,7 +118,7 @@ filedId       | A unique id to be created at your side to identity the document.
 					"Width": 140,
 					"Height": 70
 				}
-			},
+			}
 		},
 		"SecondSigner": {
 			"Signature-2": {
@@ -144,11 +161,11 @@ For example:
 
 ```json
 {
-    "UserAgrees": {
-        "Type": "Check",
-        "Value": "I agree",
-        "Location": { "Search": "user_agree" }
-    }
+	"UserAgrees": {
+		"Type": "Check",
+		"Value": "I agree",
+		"Location": { "Search": "user_agree" }
+	}
 }
 ```
 
@@ -175,30 +192,30 @@ In the simplest scenario you can only provide a value for `Search`.
 
 Example
 
-    curl \
-        -H "Authorization: APIKey 0123456789abcdef" \
-        -H "Application: APPKey yourclient fedcba0123456789" \
-        -H "Content-Type: application/json" \
-        -XPUT \
-        -d '{
-            "DisplayName": "Your personal contract",
-            "Signers": {
-            	"SomeSignerId": {
-            		"FormSets": [ "FirstFormset" ]
-            	}
-            },
-            "FormSets": {
-            	"FirstFormset": {
-            		"SignatureOne": {
-            			"Type": "Signature",
-            			"Location": {
-            				"Search": "{% raw %}{{Signer1}}{% endraw %}"
-            			}
-            		},
-            	}
-            }
-        }' \
-        https://api.signhost.com/api/transaction/SomeTransactionId/file/Contract.pdf
+	curl \
+		-H "Authorization: APIKey 0123456789abcdef" \
+		-H "Application: APPKey yourclient fedcba0123456789" \
+		-H "Content-Type: application/json" \
+		-XPUT \
+		-d '{
+			"DisplayName": "Your personal contract",
+			"Signers": {
+				"SomeSignerId": {
+					"FormSets": [ "SampleFormset" ]
+				}
+			},
+			"FormSets": {
+				"SampleFormset": {
+					"SignatureOne": {
+						"Type": "Signature",
+						"Location": {
+							"Search": "{% raw %}{{Signer1}}{% endraw %}"
+						}
+					},
+				}
+			}
+		}' \
+		https://api.signhost.com/api/transaction/SomeTransactionId/file/Contract.pdf
 
 The response will tell you that it is awaiting the actual document.
 
@@ -215,13 +232,13 @@ filedId       | A unique id to be created at your side to identity the document.
 
 Example
 
-    curl \
-        -H "Authorization: APIKey 0123456789abcdef" \
-        -H "Application: APPKey yourclient fedcba0123456789" \
-        -H "Content-Type: application/pdf" \
-        -XPUT \
-        -T Contract.pdf \
-        https://api.signhost.com/api/transaction/SomeTransactionId/file/Contract.pdf
+	curl \
+		-H "Authorization: APIKey 0123456789abcdef" \
+		-H "Application: APPKey yourclient fedcba0123456789" \
+		-H "Content-Type: application/pdf" \
+		-XPUT \
+		-T Contract.pdf \
+		https://api.signhost.com/api/transaction/SomeTransactionId/file/Contract.pdf
 
 
 - Success 201
@@ -235,10 +252,10 @@ Example
 
 Example
 
-    curl \
-        -H "Authorization: APIKey 0123456789abcdef" \
-        -H "Application: APPKey yourclient fedcba0123456789" \
-        https://api.signhost.com/api.transaction/SomeTransactionId/start
+	curl \
+		-H "Authorization: APIKey 0123456789abcdef" \
+		-H "Application: APPKey yourclient fedcba0123456789" \
+		https://api.signhost.com/api.transaction/SomeTransactionId/start
 
 Success 200
 

@@ -259,28 +259,31 @@ td em {
   font-size: 12px;
 }
 
+%endpoint {
+    display: inline-block;
+    min-width: 4em;
+    color: #fff;
+    padding: 0.1em 0.3em;
+}
+
 .get_endpoint {
-  color: #fff;
-  background-color: #2392f7;
-  padding: 0.1em;
+    @extend %endpoint;
+    background-color: #2392f7;
 }
 
 .post_endpoint {
-  color: #fff;
-  background-color: #13c20f;
-  padding: 0.1em;
+    @extend %endpoint;
+    background-color: #13c20f;
 }
 
 .put_endpoint {
-  color: #fff;
-  background-color: #ff9000;
-  padding: 0.1em;
+    @extend %endpoint;
+    background-color: #ff9000;
 }
 
 .delete_endpoint {
-  color: #fff;
-  background-color: #e30012;
-  padding: 0.1em;
+    @extend %endpoint;
+    background-color: #e30012;
 }
 
 .dynamic-wrap {
