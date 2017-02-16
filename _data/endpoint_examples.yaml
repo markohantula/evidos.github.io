@@ -37,7 +37,12 @@ post/api/transaction:
             "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",
             "DaysToRemind": 15,
             "ScribbleName": "John Doe",
-            "ScribbleNameFixed": false
+            "ScribbleNameFixed": false,
+            "Verifications": [
+              {
+                "Type": "iDIN"
+              }
+            ]
           }
           ],
           "SendEmailNotifications": true
