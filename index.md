@@ -18,7 +18,7 @@ The REST gateway BaseURL is: https://api.signhost.com/api/
 
 We require that all requests are done over SSL.
 
-### Authorization
+### Authentication
 
 To authenticate you have to add two HTTP headers to every request you make. The first header includes the name "Application" with the value "APPKey [the app key]". The second header includes the name "Authorization" with the value "APIKey [your api key]". Below you find a HTTP request header example:
 

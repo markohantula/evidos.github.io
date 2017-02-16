@@ -171,7 +171,7 @@ paths:
           description: |
             Conflict while trying to overwrite the file.
             You have used the same fileId again which causes us to overwrite the file (which is a valid action).
-            However the same fileid was provided in a to short time interval making it unclear which version was meant to be the latest version.
+            However the same fileId was provided in a to short time interval making it unclear which version was meant to be the latest version.
   '/api/transaction/{transactionId}/start':
     put:
       description: Starts a transaction with the same {transactionId}

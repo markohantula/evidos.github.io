@@ -75,7 +75,8 @@ For example, when doing a GET on the previous example you would receive:
 
 Strictly speaking this should be translated to a local time. That would mean that when you are in a different timezone then we are, you might have given it a different timezone offset (if you performed this conversion).
 
-To correct this information loss we will start to include the timezone information on all datetime properties were we have this available. This means on a GET or webhook postback the result will be the same as in the first example, including the "+01:00" (or a different timezone if applicable).
+To correct this information loss we will start to include the timezone information on all datetime properties where we have this available.
+This means on a GET or webhook postback the result will be the same as in the first example, including the "+01:00" (or a different timezone if applicable).
 
 ### What does this mean for you?
 

@@ -9,7 +9,7 @@ tags:
 
 ## How-to create a transaction with fillable form fields
 
-During the signing flow we display the PDF document to the end user so the user can read an approve (or disapprove) the document.
+During the signing flow we display the PDF document to the end user so the user can read and approve (or disapprove) the document.
 We didn't provide the option for the user to fill in specific parts in the displayed document.
 
 For example, maybe you don't have all the information available of the end user during your PDF creation process.
