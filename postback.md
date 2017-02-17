@@ -67,7 +67,7 @@ As you may have noticed the “pipe” sign ( &#124; ) is used as the delimiter 
       "ScribbleName": "John Doe",
       "ScribbleNameFixed": false,
       "Reference": "Client #123",
-      "ReturnUrl": "http://signhost.com",
+      "ReturnUrl": "https://signhost.com",
       "Activities": [
         {
           "Id": "bcba44a9-c201-4494-9920-2c1f7baebcf0",
@@ -83,7 +83,7 @@ As you may have noticed the “pipe” sign ( &#124; ) is used as the delimiter 
         }
       ],
       "RejectReason": null,
-      "SignUrl": "http://ui.signhost.com/sign/d3c93bd6-f1ce-48e7-8c9c-c2babfdd4034",
+      "SignUrl": "https://view.signhost.com/sign/d3c93bd6-f1ce-48e7-8c9c-c2babfdd4034",
       "SignedDateTime": null,
       "RejectDateTime": null,
       "CreatedDateTime": "2016-06-15T23:33:04.1965465+02:00",
@@ -106,7 +106,7 @@ As you may have noticed the “pipe” sign ( &#124; ) is used as the delimiter 
     }
   ],
   "Reference": "Contract #123",
-  "PostbackUrl": "http://example.com/postback.php",
+  "PostbackUrl": "https://example.com/postback.php",
   "SignRequestMode": 2,
   "DaysToExpire": 30,
   "SendEmailNotifications": true,
