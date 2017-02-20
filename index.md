@@ -6,21 +6,30 @@ The Signhost API is RESTful and HTTP-based. Basically, this means that the commu
 
 Required steps to create a transaction:
 
-1.  Create a new transaction with [POST api/transaction](/endpoints#%23/paths//api/transaction/post)
-2.  Upload the documents you want to be signed by performing a [PUT api/transaction/{transactionId}/file/{fileId}](/endpoints#%23/paths//api/transaction/%7BtransactionId%7D/file/%7BfileId%7D/put). Repeat for each file.
-3.  Finally start the transaction with [PUT api/transaction/{transactionId}/start](/endpoints#%23/paths//api/transaction/%7BtransactionId%7D/start/put)
+1.  Create a new transaction with [POST api/transaction](/endpoints#%23/paths//api/transaction/post).
+2.  Optionally you can add metadata to generate fields with [PUT api/transaction/{transactionId}/file/{fileId}](/endpoints#%23/paths//api/transaction/%7BtransactionId%7D/file/%7BfileId%7D/put).
+You have to submit the metadata first before you upload the file.
+Make sure you use the same fileId for both the metadata and the file.
+3.  Upload the documents you want to be signed by performing a [PUT api/transaction/{transactionId}/file/{fileId}](/endpoints#%23/paths//api/transaction/%7BtransactionId%7D/file/%7BfileId%7D/put).
+Repeat for each file.
+4.  Finally start the transaction with [PUT api/transaction/{transactionId}/start](/endpoints#%23/paths//api/transaction/%7BtransactionId%7D/start/put).
 
-## Server Address
+### Server Address
 
 The REST gateway BaseURL is: https://api.signhost.com/api/
 
-## Security
+### Security
 
 We require that all requests are done over SSL.
 
-### Authentication
+## Authentication
 
-To authenticate you have to add two HTTP headers to every request you make. The first header includes the name "Application" with the value "APPKey [the app key]". The second header includes the name "Authorization" with the value "APIKey [your api key]". Below you find a HTTP request header example:
+To authenticate you have to add two HTTP headers to every request you make.
+The first header includes the name "Application" with the value "APPKey [the app key]".
+This application key will be provided to you by email.
+The second header includes the name "Authorization" with the value "APIKey [your api key]".
+The API key can be generated via My Account > Profile > API keys at the [SignHost Portal](https://portal.signhost.com/).
+Below you find a HTTP request header example:
 
     Content-Type: application/json
     Application: APPKey ApplicationName 6kDtzzEoHKmmc2dqnkIqfIQaoKQTdFj1Wl7ZQNsDHR8=
@@ -28,17 +37,7 @@ To authenticate you have to add two HTTP headers to every request you make. The 
     Accept: */*
     Connection: keep-alive
 
-## Webhook / Postback URL
-
-In your request you can specify a PostbackUrl. On this URL on your own server Signhost will do a POST with the status of the request. We only support a postback on the default https:// port 443. Port 80 / http:// is *not* supported. We will only issue 1 postback per PostbackURL at a time, one-by-one.
-
-When a postback fails we will queue all new postbacks and retry these again at a later time.
-If the postback succeeds again we will continue issuing the remaining queued postbacks.
-
-For more information about postbacks and calculating the checksum and the body of the request view the [webhook postback sample](/postback) help page.
-
-
-## Direct or invite SignRequest
+## Get signed document and receipt
 
 With the Signhost API it is possible to facilitate two different signing flows to the signer.
 
@@ -46,7 +45,19 @@ With the Signhost API it is possible to facilitate two different signing flows t
 
 **The direct flow;** The Signhost API returns a URL you will be able to directly redirect the signer on your portal or send the signer a message with the signing link yourself.
 
-When you create a transaction the Inviteflow is initiated setting the SendSignRequest parameter TRUE during the POST api/transaction.
+By default the direct flow will be used when you create a transaction.
+If you would like to make use of the Invite flow, you can do so by setting the SendSignRequest parameter to TRUE during the POST api/transaction.
+
+If you choose to make use of the Invite flow we will send a reminder after 7 days, you can adjust the amount of days by supplying a DaysToRemind parameter during the POST api/transaction (a value of -1 disables reminders).
+
+When the transaction is successfully signed (Status=30) you will be able to GET the signed document and receipt with a HTTP GET request to [api/file/document/{fileId}](/endpoints#get/api/transaction/{transactionId}/file/{fileId}/) or [api/file/receipt/{transactionId}](/endpoints#get/api/file/receipt/{transactionId}).
+Do not forget to add the authorization headers as well.
+
+For legal proof it is important to store both the signed document and the receipt.
+
+*   The Sender will receive the signed documents and receipt per mail when the **SendEmailNotification** is set to true.
+*   The Signers will receive the signed documents and receipt per mail when the **SendSignConfirmation** is set to true.
+*   The Receivers will always receive the signed documents and receipts per mail.
 
 ## Specify signature location
 
@@ -74,33 +85,38 @@ Besides specifying the signature location via the signer tag or with already exi
 
 For this method you do not need to prepare the PDF file in anyway. The flow of making a transaction is basically the same as before, although this time you need to add file meta data to the transaction before uploading the file(s). For more information about this method please take a further look at the following post: [How to create a transaction with api generated fields]({% post_url 2016-10-06-api-generated-fields %}).
 
+## Webhook / Postback URL
 
-## Formats
+In your request you can specify a PostbackUrl.
+On this URL on your own server Signhost will do a POST with the status of the request.
+We only support a postback on the default https:// port 443.
+Port 80 / http:// is *not* supported.
+We will only issue 1 postback per PostbackURL at a time, one-by-one.
 
-JSON results which contain a date, time or datetime property are formatted according to [ISO8601](http://www.iso.org/iso/iso8601). A short explanation of the format is available at [w3.org - Date and Time Formts](http://www.w3.org/TR/NOTE-datetime).
+When a postback fails we will queue all new postbacks and retry these again at a later time.
+If the postback succeeds again we will continue issuing the remaining queued postbacks.
 
-## Return codes
-
-Our REST API uses the standard [HTTP/1.1 status codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) to return the status of your request. In short this means that any status code in the range of:
-
-*   **2xx** (eg 200) your request was successful;
-*   **4xx** (eg 400 bad request, invalid email address) there is an error in your request. You must not retry this request unless you have corrected the error;
-*   **5xx** (eg 500) there was an error on our side. You may retry this request at a later time. If you implement a retry policy you should use a backoff policy.
+For more information about postbacks and calculating the checksum and the body of the request view the [webhook postback sample](/postback) help page.
 
 ## Return URL Parameters
 
 When the user signs or rejects the transaction we will redirect the browser to the return URL. The returnURL will contain the following parameters:  
 ?sh_id=transactionid&status=status_of_transaction&reference=your_reference
 
-## Get signed document and receipt
+## Return codes
 
-When the transaction is successfully signed (Status=30) you will be able to GET the signed document and receipt with a HTTP GET request to [api/file/document/{fileId}](/endpoints#get/api/transaction/{transactionId}/file/{fileId}/) or [api/file/receipt/{transactionId}](/endpoints#get/api/file/receipt/{transactionId}). Do not forget to add the authorization headers as well.
+Our REST API uses the standard [HTTP/1.1 status codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) to return the status of your request.
+In short this means that any status code in the range of:
 
-For legal proof it is important to store both the signed document and the receipt.
+*   **2xx** (eg 200) your request was successful;
+*   **4xx** (eg 400 bad request, invalid email address) there is an error in your request.
+You must not retry this request unless you have corrected the error;
+*   **5xx** (eg 500) there was an error on our side. You may retry this request at a later time.
+If you implement a retry policy you should use a backoff policy.
 
-*   The Sender will receive the signed documents and receipt per mail when the **SendEmailNotification** is set to true.
-*   The Signers will receive the signed documents and receipt per mail when the **SendSignConfirmation** is set to true.
-*   The Receivers will always receive the signed documents and receipts per mail.
+## Formats
+
+JSON results which contain a date, time or datetime property are formatted according to [ISO8601](http://www.iso.org/iso/iso8601). A short explanation of the format is available at [w3.org - Date and Time Formts](http://www.w3.org/TR/NOTE-datetime).
 
 ## Libraries & demos
 
@@ -115,3 +131,16 @@ There are a few libraries and demos available to make connecting to our API easi
 
 *   [RequestBin](http://requestb.in/) for testing the postback.
 *   [JSONLint](http://jsonlint.com/) for formatting and checking json messages.
+
+## Posts
+<ul class="post-list">
+  {% for post in site.posts reversed %}
+    <li>
+      <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+
+      <h2>
+        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      </h2>
+    </li>
+  {% endfor %}
+</ul>
