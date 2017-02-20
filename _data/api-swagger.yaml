@@ -136,7 +136,10 @@ paths:
     put:
       description: |
         Add a file to the transaction or overwrite an existing file with the same {fileId}.
+        The file parameter can either be the PDF document or JSON <a href="##/definitions/FileMetaData">metadata</a>.
+        Metadata must always be supplied first.
         Only PDF documents with Content-Type 'application/pdf' are accepted.
+        Related posts <a href="http://localhost:4000/api/howto/2016/10/06/api-generated-fields.html/">api generated fields</a>, <a href="http://localhost:4000/api/howto/2016/04/21/howto-create-a-transaction-with-fillable-pdf-fields.html">howto create a transaction with fillable pdf fields</a>
       consumes:
         - 'application/pdf'
         - 'application/json'
@@ -171,7 +174,7 @@ paths:
           description: |
             Conflict while trying to overwrite the file.
             You have used the same fileId again which causes us to overwrite the file (which is a valid action).
-            However the same fileId was provided in a to short time interval making it unclear which version was meant to be the latest version.
+            However the same fileId was provided in a too short time interval making it unclear which version was meant to be the latest version.
   '/api/transaction/{transactionId}/start':
     put:
       description: Starts a transaction with the same {transactionId}
@@ -532,9 +535,15 @@ definitions:
   FileMetaData:
     type: object
     properties:
+      DisplayOrder:
+        type: integer
+        description: With what order number we'll display the file to the signer
       DisplayName:
         type: string
         description: With what name we'll display the file to the signer
+      Description:
+        type: string
+        description: With what description we'll display the file to the signer
       Signers:
         type: object
         description: |

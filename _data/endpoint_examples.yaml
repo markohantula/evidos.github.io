@@ -40,8 +40,20 @@ post/api/transaction:
             "ScribbleNameFixed": false,
             "Verifications": [
               {
-                "Type": "iDIN"
+                "Type": "iDeal"
               }
+            ]
+          },
+          {
+            "Email": "anotheruser@example.com",
+            "RequireScribble": true,
+            "SendSignRequest": true,
+            "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",
+            "DaysToRemind": 15,
+            "ScribbleName": "John Doe",
+            "ScribbleNameFixed": false,
+            "Mobile": "+31612345678",
+            "RequireSmsVerification": true
             ]
           }
           ],
@@ -49,7 +61,9 @@ post/api/transaction:
           }'
           https://api.signhost.com/api/transaction/
     json_response: post_api_transaction.json
-    response_information: This method returns the newly created transaction.
+    response_information: |
+      This method returns the newly created transaction.
+      The default values for the second signer have been stripped away.
 put/api/transaction/{transactionId}/file/{fileId}:
   - example:
     curl_request: |

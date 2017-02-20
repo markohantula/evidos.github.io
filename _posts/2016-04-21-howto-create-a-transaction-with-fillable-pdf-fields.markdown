@@ -26,7 +26,7 @@ Contact [us](mailto:support@signhost.com?subject=PDF and formfields) if you need
 **TL;DR**
 
 1. Create a transaction
-2. Add document meta data
+2. Add document metadata
 3. Add document
 4. Start the transaction
 
@@ -95,7 +95,7 @@ Parameter     | Description
 --------------|-------------
 Content-Type  | application/json
 transactionId | id from the transaction as returned by Create a transaction
-filedId       | A unique id to be created at your side to identity the document. Could be your document filename.
+fileId        | A unique id to be created at your side to identity the document. Could be your document filename.
 
 
 ```json
@@ -138,7 +138,7 @@ Parameter     | Description
 --------------|-------------
 Content-Type  | application/pdf
 transactionId | id from the transaction as returned by Create a transaction
-filedId       | A unique id to be created at your side to identity the document. Should be the same id as the one you provided for the file meta data.
+fileId        | A unique id to be created at your side to identity the document. Should be the same id as the one you provided for the file metadata.
 
 
 Example
@@ -155,7 +155,7 @@ Example
 - Success 201
 - Success 204
 
-*We are looking into combining the meta data and the file contents into one API call*
+*We are looking into combining the metadata and the file contents into one API call*
 
 ### Start the transaction
 
