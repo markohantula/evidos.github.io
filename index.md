@@ -29,6 +29,7 @@ The first header includes the name "Application" with the value "APPKey [the app
 This application key will be provided to you by email.
 The second header includes the name "Authorization" with the value "APIKey [your api key]".
 The API key can be generated via My Account > Profile > API keys at the [SignHost Portal](https://portal.signhost.com/).
+
 Below you find a HTTP request header example:
 
     Content-Type: application/json

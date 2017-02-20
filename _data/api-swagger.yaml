@@ -239,7 +239,6 @@ definitions:
               type: string
               description:  |
                 The BSN of the signer.
-                Required if `RequireDigiDVerification` is set.
               example: "900078479"
             RequireScribble:
               description: Require that the signer has to draw a scribble.
