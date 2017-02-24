@@ -299,7 +299,9 @@ definitions:
               default: false
               type: boolean
             DaysToRemind:
-              description: Amount of days before reminding the signers. -1 to disable reminders.
+              description: |
+                Amount of days before reminding the signers. -1 to disable reminders.
+                Ignored if `SendSignRequest` is set to false.
               default: 7
               type: integer
             Expires:
@@ -396,7 +398,9 @@ definitions:
       SignRequestMode:
         type: integer
         format: int32
-        description: Set to 1 for sending at once, to 2 for sequential.
+        description: |
+          Set to 1 for sending at once, to 2 for sequential.
+          Ignored if `SendSignRequest` is set to false.
         default: 2
       DaysToExpire:
         type: integer
