@@ -361,7 +361,7 @@ definitions:
                   Info:
                     type: string
                     description: May contain additional information belonging to this activity
-                  CreateDateTime:
+                  CreatedDateTime:
                     type: string
                     format: date-time
       Receivers:
