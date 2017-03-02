@@ -42,7 +42,7 @@ The CreatedDateTime property contains the value "2015-12-07T15:49:30.7415254**+0
 As can be seen, there is a "+01:00" timezone information included.
 This is an absolute point in time, this is correct behaviour.
 
-Unfortunately when you do a GET on the transaction or when you receive the data over a postback/webhook you might have noticed that we no longer include the timezone information and the "+01:00" got lost.
+Unfortunately sometimes (particularly on older transactions) you might have noticed that we did not include the timezone information and the "+01:00" got lost.
 For example, when doing a GET on the previous example you would receive:
 
 ``` json
@@ -75,7 +75,7 @@ For example, when doing a GET on the previous example you would receive:
 
 Strictly speaking this should be translated to a local time. That would mean that when you are in a different timezone then we are, you might have given it a different timezone offset (if you performed this conversion).
 
-To correct this information loss we will start to include the timezone information on all datetime properties where we have this available.
+On newer requests we include the timezone information on all datetime properties where we have this data available.
 This means on a GET or webhook postback the result will be the same as in the first example, including the "+01:00" (or a different timezone if applicable).
 
 ### What does this mean for you?
