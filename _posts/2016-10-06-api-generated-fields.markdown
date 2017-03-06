@@ -10,9 +10,8 @@ tags:
 ## How-to create a transaction with api generated fields
 
 In this how-to we describe how you can create a transaction with fillable
-form fields on a PDF that isn't prepared in anyway.  This is diferent compared to 
-[How-to create a transaction with fillable form fields]({% post_url 2016-04-21-howto-create-a-transaction-with-fillable-pdf-fields %})
-where you were required to use a PDF which already has all the form fields embedded in the PDF.
+form fields on a PDF that isn't prepared in any way.
+This is different compared to [How-to create a transaction with fillable form fields]({% post_url 2016-04-21-howto-create-a-transaction-with-fillable-pdf-fields %}) where you were required to use a PDF which already has all the form fields embedded in the PDF.
 
 ### Create a transaction
 

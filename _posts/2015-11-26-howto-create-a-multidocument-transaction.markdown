@@ -9,7 +9,9 @@ tags:
 
 ## How-to start a multi document transaction
 
-First you will have to create a transaction. A transactionid will be returned which you can use to add documents to the transaction. When all documents are uploaded you'll need to start the transaction.
+First you will have to create a transaction.
+A transactionId will be returned which you can use to add documents to the transaction.
+When all documents are uploaded you'll need to start the transaction.
 
 
 ### Create a transaction

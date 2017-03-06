@@ -7,13 +7,13 @@
       "Id": "e0b39ec0-e0c6-45d9-bf0d-ae8cafbe2f48",
       "Expires": null,
       "Email": "user@example.com",
-      "Mobile": "+31612345678",
+      "Mobile": null,
       "Iban": null,
       "BSN": null,
       "RequireScribbleName": false,
       "RequireScribble": true,
-      "RequireEmailVerification": true,
-      "RequireSmsVerification": true,
+      "RequireEmailVerification": false,
+      "RequireSmsVerification": false,
       "RequireDigidVerification": false,
       "RequireKennisnetVerification": false,
       "RequireSurfnetVerification": false,
@@ -23,7 +23,7 @@
           "IPAddress": "203.0.113.5"
         },
         {
-          "Type": "iDIN"
+          "Type": "iDeal"
         }
       ],
       "SendSignRequest": true,
@@ -63,6 +63,18 @@
       "CreatedDateTime": "2016-06-15T23:33:04.1965465+02:00",
       "ModifiedDateTime": "2016-06-15T23:33:04.1965465+02:00",
       "Context": null
+    },
+    {
+      "Id": "b9d0f613-985d-4a5a-8e79-a83f7b5d6b55",
+      "Email": "anotheruser@example.com",
+      "Mobile": "+31612345678",
+      "RequireScribble": true,
+      "RequireSmsVerification": true,
+      "SendSignRequest": true,
+      "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",
+      "DaysToRemind": 15,
+      "ScribbleName": "John Doe",
+      "ScribbleNameFixed": false
     }
   ],
   "Receivers": [

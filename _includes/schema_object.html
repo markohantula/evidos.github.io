@@ -75,6 +75,9 @@
 			{% if prop_schema.additionalProperties %}
 			map of type 
 			<a href="#{{ prop_schema.additionalProperties["$ref"] | uri_escapce }}">{{ prop_schema.additionalProperties["$ref"] }}</a>
+			{% elsif prop_schema.items %}
+			of type
+			<a href="#{{ prop_schema.items["$ref"] | uri_escapce }}">{{ prop_schema.items["$ref"] }}</a>
 			{% endif %}
 		<td>{{ prop_schema.default }}
 		<td>{{ prop_schema.description | markdownify }}
