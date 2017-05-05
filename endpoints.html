@@ -43,7 +43,7 @@ permalink: /endpoints/
       <div id="{{ method_id }}">
       <h2><span class="{{ method_name }}_endpoint">{{ method_name | upcase }}:</span> {{ path[0] }}</h2>
       <h3>Description</h3>
-      <p>{{ method.description }}</p>
+      <p>{{ method.description | markdownify }}</p>
 
       <!-- Begin Parameter section -->
       {% if method.parameters and first %}
