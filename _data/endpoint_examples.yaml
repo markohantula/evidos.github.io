@@ -72,6 +72,7 @@ put/api/transaction/{transactionId}/file/{fileId}:
         -H "Application: APPKey yourclient fedcba0123456789" \
         -H "SH-DisplayName: Your personal contract" \
         -H "Content-Type: application/pdf" \
+        -H "Digest: SHA-256=HtHRpLOZBEMnTpQS6Zn12veC4uhjtMwamfVAwmPQPmE=" \
       -XPUT \
         -T Contract.pdf \
       https://api.signhost.com/api/transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57/file/Contract.pdf
