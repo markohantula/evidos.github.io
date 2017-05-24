@@ -58,7 +58,7 @@ For legal proof it is important to store both the signed document and the receip
 
 *   The Sender will receive the signed documents and receipt per mail when the **SendEmailNotification** is set to true.
 *   The Signers will receive the signed documents and receipt per mail when the **SendSignConfirmation** is set to true.
-*   The Receivers will always receive the signed documents and receipts per mail.
+*   The Receivers will always receive the signed documents per mail.
 
 ## Specify signature location
 
