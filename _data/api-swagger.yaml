@@ -276,6 +276,12 @@ definitions:
               description: Send a sign invitation to the signer his e-mail address.
               default: false
               type: boolean
+            SignUrl:
+              description: |
+                A unique URL per signer that provides the signing flow for the signer.
+                Available / valid if `SendSignRequest` is set to false.
+              type: string
+              readOnly: true
             SignRequestMessage:
               description: |
                 The message of the sign request in plain text.
