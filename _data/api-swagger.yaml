@@ -509,6 +509,12 @@ definitions:
           readOnly: true
           description: Date of birth of idin consumer / signer
           example: 2001-12-31
+        Attributes:
+            type: map of string
+            readOnly: true
+            description: |
+              Contains all available iDIN attributes.
+              These attributes may change, therefore we cannot guarantee the availability of any of these attributes.
     example: | 
       An iDIN verification response may have the following content
 
@@ -516,7 +522,28 @@ definitions:
       {
         "Type": "iDIN",
         "AccountHolderName": "John Doe",
-        "AccountHolderDateOfBirth": "2001-12-31"
+        "AccountHolderDateOfBirth": "2001-12-31",
+        "AccountHolderAddress1": "Straatlaan 123 AB",
+        "AccountHolderAddress2": "AMSTERDAM 1234AB",
+        "Attributes": {
+            "urn:nl:bvn:bankid:1.0:consumer.bin": "xxxxx",
+            "urn:nl:bvn:bankid:1.0:bankid.deliveredserviceid": "12345",
+            "urn:nl:bvn:bankid:1.0:consumer.housenosuf": "AB",
+            "urn:nl:bvn:bankid:1.0:consumer.postalcode": "1234AB",
+            "urn:nl:bvn:bankid:1.0:consumer.houseno": "123",
+            "urn:nl:bvn:bankid:1.0:consumer.initials": "JN",
+            "urn:nl:bvn:bankid:1.0:consumer.street": "Straatlaan",
+            "urn:nl:bvn:bankid:1.0:consumer.dateofbirth": "19800124",
+            "urn:nl:bvn:bankid:1.0:consumer.legallastname": "Doe",
+            "urn:nl:bvn:bankid:1.0:consumer.country": "NL",
+            "urn:nl:bvn:bankid:1.0:consumer.city": "AMSTERDAM",
+            "urn:nl:bvn:bankid:1.0:consumer.preferredlastname": "Doe",
+            "urn:nl:bvn:bankid:1.0:consumer.addressextra": "#",
+            "urn:nl:bvn:bankid:1.0:consumer.gender": "1",
+            "urn:nl:bvn:bankid:1.0:consumer.partnerlastname": "Roe",
+            "urn:nl:bvn:bankid:1.0:consumer.legallastnameprefix": "van der",
+            "urn:nl:bvn:bankid:1.0:consumer.preferredlastnameprefix": "van der"
+        }
       }
       ```
   FileEntry:
