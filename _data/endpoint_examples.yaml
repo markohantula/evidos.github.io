@@ -54,7 +54,6 @@ post/api/transaction:
             "ScribbleNameFixed": false,
             "Mobile": "+31612345678",
             "RequireSmsVerification": true
-            ]
           }
           ],
           "SendEmailNotifications": true
