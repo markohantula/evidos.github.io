@@ -100,7 +100,7 @@ Example
 Success 201
 Success 204
 
-You can add another file by using a a different fileId like this:
+You can add another file by using a different fileId like this:
 
     curl \
         -H "Authorization: APIKey 0123456789abcdef" \
