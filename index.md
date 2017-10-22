@@ -121,7 +121,7 @@ If you implement a retry policy you should use a backoff policy.
 
 ## Formats
 
-JSON results which contain a date, time or datetime property are formatted according to [ISO8601](http://www.iso.org/iso/iso8601). A short explanation of the format is available at [w3.org - Date and Time Formts](http://www.w3.org/TR/NOTE-datetime).
+JSON results which contain a date, time or datetime property are formatted according to [ISO8601](http://www.iso.org/iso/iso8601). A short explanation of the format is available at [w3.org - Date and Time Formats](http://www.w3.org/TR/NOTE-datetime).
 
 ## Libraries & demos
 

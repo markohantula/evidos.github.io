@@ -131,6 +131,6 @@ If the webhook URL doesn't return a 2xx HTTP response code, that POST request wi
 If a particular POST request is unsuccessful and is being retried, no other POSTs will be attempted until the first one succeeds or is marked as failed.
 Requests are marked failed after about 1 week since the request was created.
 Subsequent postbacks are deferred until the first completes.
-Once the first postback request completes the defered requests will be processed sequentially.
+Once the first postback request completes the deferred requests will be processed sequentially.
 
 Since postback requests can ultimately fail, it's best to accept and store data on your end (with an HTTP 200 response to Signhost) for later processing to avoid data loss.
