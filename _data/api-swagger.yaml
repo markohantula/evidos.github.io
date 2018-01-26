@@ -496,7 +496,7 @@ definitions:
           description: |
             Name of the idin consumer / signer.
             Currently we don't support supplying a value in this property to ensure the expected account holder name matches.
-            This could change in the feature.
+            This could change in the future.
         AccountHolderAddress1:
           type: string
           readOnly: true
