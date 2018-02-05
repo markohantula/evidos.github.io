@@ -484,6 +484,17 @@ definitions:
         AccountHolderCity:
           type: string
           readOnly: true
+    example: | 
+      An iDeal verification response may have the following content:
+      ```json
+      {
+          "Type": "iDeal",
+          "Iban": "NL01ABNA0123456789",
+          "AccountHolderName": "DOE J",
+          "AccountHolderCity": ""
+        }
+      }
+      ```
 
   iDIN:
     allOf:
@@ -516,7 +527,7 @@ definitions:
               Contains all available iDIN attributes.
               These attributes may change, therefore we cannot guarantee the availability of any of these attributes.
     example: | 
-      An iDIN verification response may have the following content
+      An iDIN verification response may have the following content:
 
       ```json
       {
