@@ -82,7 +82,7 @@ put/api/transaction/{transactionId}/start:
         -H "Authorization: APIKey 0123456789abcdef" \
         -H "Application: APPKey yourclient fedcba0123456789" \
         https://api.signhost.com/api/transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57/start
-delete/delete/transaction/{transactionId}:
+delete/api/transaction/{transactionId}:
   - example:
     curl_request: |
       curl \

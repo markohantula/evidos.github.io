@@ -71,6 +71,7 @@
   "SendEmailNotifications": true,
   "CreatedDateTime": "2016-06-15T23:33:04.1965465+02:00",
   "ModifiedDateTime": "2016-06-15T23:33:04.1965465+02:00",
-  "CanceledDateTime": null,
+  "CanceledDateTime": "2016-06-15T23:34:15+02:00",
+  "CancelationReason": "This document is out-dated",
   "Context": null
 }
