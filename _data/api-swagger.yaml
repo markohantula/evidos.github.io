@@ -598,6 +598,9 @@ definitions:
       Description:
         type: string
         description: With what description we'll display the file to the signer
+      SetParaph:
+        type: bool
+        description: Use the signers' scribble as paraph on every page lacking the mustache tag.
       Signers:
         type: object
         description: |
@@ -682,6 +685,7 @@ definitions:
       ```
         {
           "DisplayName": "Your personal contract",
+          "SetParaph": true,
           "Signers": {
             "SomeSignerId": {
               "FormSets": [ "FirstFormset" ]
