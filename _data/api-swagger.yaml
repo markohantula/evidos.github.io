@@ -447,6 +447,9 @@ definitions:
         - 50
         - 60
         - 70
+      CancelationReason:
+        type: string
+        description: The original cancellation reason given during a DELETE call.
       Context:
         type: object
         description: Any valid json object which we will return back to you when doing a GET on the transaction or when we send a postback.
