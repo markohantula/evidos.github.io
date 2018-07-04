@@ -134,8 +134,10 @@ There are a few libraries and demos available to make connecting to our API easi
 
 ## Handy tools
 
-*   [Hookbin](https://hookbin.com) for testing the postback.
+*   [Webhook Tester](https://webhook.site) / [Webhook Inbox*](http://webhookinbox.com/) for testing the postback.
 *   [JSONLint](https://jsonlint.com/) for formatting and checking json messages.
+
+\* Webhook Inbox only supports HTTP.
 
 ## Posts
 <ul class="post-list">
