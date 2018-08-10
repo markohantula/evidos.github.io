@@ -105,8 +105,22 @@ For more information about postbacks and calculating the checksum and the body o
 
 ## Return URL Parameters
 
-When the user signs or rejects the transaction we will redirect the browser to the return URL. The returnURL will contain the following parameters:  
-?sh_id=transactionid&status=status_of_transaction&reference=your_reference
+When the user signs or rejects the transaction we will redirect the browser to the return URL.
+The return URL will have one of the following parameters, determined by the user action:
+
+*   **User signs :**
+    https://www.example.org/[yourReturnUrl]?sh_signerstatus=signed
+*   **User rejects :**
+    https://www.example.org/[yourReturnUrl]?sh_signerstatus=rejected
+*   **Other :**
+    https://www.example.org/[yourReturnUrl] or https://www.example.org/[yourReturnUrl]?sh_signerstatus=
+
+The user actions provide an indication on what the user chose to do.
+However, you must validate the actual status using the API, and you should not trust the sh_signerstatus for any important processing.
+Depending on the communicated sh_signerstatus, you might want to show a different page.
+Once the user signed or rejected the transaction, the server will process the input.
+Therefore, the return URL will always be available before the transaction status has been updated.
+Once the server has completed processing, a new postback will be send with the new transaction status.
 
 ## Return codes
 
