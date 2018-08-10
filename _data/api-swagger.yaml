@@ -222,7 +222,7 @@ definitions:
           $ref: '#/definitions/FileEntry'
       Seal:
         type: boolean
-        default: true
+        default: false
         description: Seal the document before sending to the signers.
       Signers:
         type: array
