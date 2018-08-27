@@ -491,7 +491,6 @@ definitions:
       {
           "Type": "DigiD",
           "Bsn": "910078476"
-        }
       }
       ```
   eHerkenning:
@@ -530,7 +529,6 @@ definitions:
           "Iban": "NL01ABNA0123456789",
           "AccountHolderName": "DOE J",
           "AccountHolderCity": ""
-        }
       }
       ```
 
