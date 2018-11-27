@@ -445,6 +445,7 @@ definitions:
           - Consent
           - DigiD
           - eHerkenning
+          - eIDAS Login
           - iDeal
           - iDIN
           - Kennisnet
@@ -502,6 +503,58 @@ definitions:
           type: string
         EntityConcernIdKvkNr:
           type: string
+
+  eIDAS Login:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+      properties:
+        Uid:
+          type: string
+          readOnly: true
+          description: The unique identifier returned by eIDAS Login.
+        Level:
+          type: string
+          readOnly: true
+          description: The Level of Assurance.
+        FirstName:
+          type: string
+          readOnly: true
+          description: The first name of the signer as returned by eIDAS Login.
+        LastName:
+          type: string
+          readOnly: true
+          description: The last name of the signer as returned by eIDAS Login.
+        DateOfBirth:
+          type: string
+          format: date
+          readOnly: true
+          description: The date of birth of the signer as returned by eIDAS Login.
+        Attributes:
+          type: map of string
+          readOnly: true
+          description: |
+            Contains all available eIDAS Login attributes.
+            These attributes may change, therefore we cannot guarantee the availability of any of these attributes.
+    example: |
+      An eIDAS Login verification response may have the following content:
+      ```json
+      {
+          "Type": "eIDAS Login",
+          "Uid": "ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789",
+          "Level": "High",
+          "FirstName": "John",
+          "LastName": "van der Doe",
+          "DateOfBirth": "1970-01-01",
+          "Attributes": {
+            "urn:etoegang:1.9:attribute:DateOfBirth": "1970-01-01",
+            "urn:etoegang:1.9:attribute:FirstName": "John",
+            "urn:etoegang:1.9:attribute:Initials": "J.",
+            "urn:etoegang:1.9:attribute:FamilyName": "Doe",
+            "urn:etoegang:1.9:attribute:FamilyNameInfix": "van der"
+          }
+      }
+      ```
 
   iDeal:
     allOf:
