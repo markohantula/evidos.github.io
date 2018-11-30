@@ -4,7 +4,20 @@ title: Postback
 permalink: /postback/
 ---
 
-Webhook sample to view body content
+The Signhost postback service is meant to provide realtime updates on your transactions.
+Please refrain from active polling with GET requests to stay up-to-date.
+If you cannot implement the postback service, or you have any questions regarding the service, please contact [support](mailto:support@evidos.nl).
+
+### Adviced postback implementation flow
+
+To avoid postback queue's for your application, we advice the following flow once a postback arrives at your server:
+  1. Perform checksum validation
+  2. Always return a 200 OK response*
+  3. Save verified postback to storage
+  4. Continue business logic
+
+\* This is a security precaution which prevents information on your validation process to return to the - potentially malicious - sender of the postback.
+Any other response than 2xx will lead to the formation of a postback queue (see below).
 
 ## Request Information
 
@@ -127,6 +140,7 @@ As you may have noticed the “pipe” sign ( &#124; ) is used as the delimiter 
 ### What happens if your postback URL is down or can't accept requests?
 
 If the webhook URL doesn't return a 2xx HTTP response code, that POST request will be re-attempted with a random increasing interval.
+All following postbacks will be put in a postback queue, and will wait there untill the first postback in the queue gets a 2xx HTTP response code.
 
 If a particular POST request is unsuccessful and is being retried, no other POSTs will be attempted until the first one succeeds or is marked as failed.
 Requests are marked failed after about 1 week since the request was created.

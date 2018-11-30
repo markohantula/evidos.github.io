@@ -27,7 +27,10 @@ parameters:
 paths:
   '/api/transaction/{transactionId}':
     get:
-      description: Returns current transaction details
+      description: |
+        Returns current transaction details.
+
+        Please do not use any GET method for active polling, but use our [postback service](/postback/) for this end.
       parameters:
         - name: transactionId
           description: ID of the transaction
