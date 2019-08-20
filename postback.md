@@ -12,7 +12,11 @@ If you cannot implement the postback service, or you have any questions regardin
 
 To avoid postback queue's for your application, we advice the following flow once a postback arrives at your server:
   1. Perform checksum validation
+      * Validate the body is valid JSON, if not move to step 2;
+      * Validate the JSON has a Checksum property, if not move to step 2;
+      * Validate the Checksum value, if there is a mismatch move to step 2.
   2. Always return a 200 OK response*
+	    * Skip rest of the steps if the checksum validation failed.
   3. Save verified postback to storage
   4. Continue business logic
 
