@@ -487,6 +487,7 @@ definitions:
           - Kennisnet
           - PhoneNumber
           - Scribble
+          - itsme sign
           - SigningCertificate
           - SURFnet
         description: |
@@ -810,6 +811,30 @@ definitions:
       }
       ```
 
+  itsme sign:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+      properties:
+        Issuer:
+          type: string
+          readOnly: true
+        Subject:
+          type: string
+          readOnly: true
+        Thumbprint:
+          type: string
+          readOnly: true
+    example: |
+      An itsme sign verification response may have the following content:
+      ```json
+      {
+        "Type": "itsme sign",
+        "Issuer": "CN=John Doe QC POC SELFSIGNED, C=NL, S=Noord-Holland, L=Haarlem, E=example@example.org, OU=IT, O=Evidos B.V.",
+        "Subject": "CN=John Doe QC POC SELFSIGNED, C=NL, S=Noord-Holland, L=Haarlem, E=example@example.org, OU=IT, O=Evidos B.V.",
+        "Thumbprint": "2B31AD44D93BE1FAED6B18A23ADF1BDD4DA0ECE8"
+      }
+      ```
   SigningCertificate:
     allOf:
     - $ref: '#/definitions/Verification'
