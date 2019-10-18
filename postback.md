@@ -80,7 +80,6 @@ As you may have noticed the “pipe” sign ( &#124; ) is used as the delimiter 
       "RequireSmsVerification": true,
       "RequireIdealVerification": false,
       "RequireDigidVerification": false,
-      "RequireKennisnetVerification": false,
       "RequireSurfnetVerification": false,
       "SendSignRequest": true,
       "SendSignConfirmation": null,

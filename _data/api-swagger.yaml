@@ -464,7 +464,6 @@ definitions:
           - iDeal
           - iDIN
           - itsme Identification
-          - Kennisnet
           - PhoneNumber
           - Scribble
           - SigningCertificate 
@@ -723,10 +722,6 @@ definitions:
         "IPAddress": "198.51.100.42"
       }
       ```
-  Kennisnet:
-    allOf:
-    - $ref: '#/definitions/Verification'
-    - type: object
 
   PhoneNumber:
     allOf:

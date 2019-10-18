@@ -15,7 +15,6 @@
       "RequireEmailVerification": false,
       "RequireSmsVerification": false,
       "RequireDigidVerification": false,
-      "RequireKennisnetVerification": false,
       "RequireSurfnetVerification": false,
       "Verifications": [
         {
