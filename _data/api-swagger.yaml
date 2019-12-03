@@ -419,7 +419,7 @@ definitions:
       SendEmailNotifications:
         type: boolean
         description: Send e-mail notifications to the sender.
-        default: false
+        default: true
       Status:
         type: integer
         format: int32
