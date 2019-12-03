@@ -59,7 +59,7 @@ Do not forget to add the authorization headers as well.
 
 For legal proof it is important to store both the signed document and the receipt.
 
-*   The Sender will receive the signed documents and receipt per mail when the **SendEmailNotification** is set to true.
+*   The Sender will receive the signed documents and receipt per mail when the **SendEmailNotifications** is set to true.
 *   The Signers will receive the signed documents and receipt per mail when the **SendSignConfirmation** is set to true.
 *   The Receivers will always receive the signed documents per mail.
 
