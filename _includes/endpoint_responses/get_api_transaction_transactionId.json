@@ -37,7 +37,6 @@
       "RequireEmailVerification": true,
       "RequireSmsVerification": true,
       "RequireDigidVerification": false,
-      "RequireKennisnetVerification": false,
       "RequireSurfnetVerification": false,
       "SendSignRequest": true,
       "SendSignConfirmation": null,

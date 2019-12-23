@@ -484,7 +484,6 @@ definitions:
           - iDeal
           - iDIN
           - itsme Identification
-          - Kennisnet
           - PhoneNumber
           - Scribble
           - itsme sign
@@ -777,10 +776,6 @@ definitions:
         "IPAddress": "198.51.100.42"
       }
       ```
-  Kennisnet:
-    allOf:
-    - $ref: '#/definitions/Verification'
-    - type: object
 
   PhoneNumber:
     allOf:
