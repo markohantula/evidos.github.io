@@ -145,7 +145,7 @@ paths:
       description: |
         Add a file to the transaction or overwrite an existing file with the same {fileId}.
         The file parameter can either be the PDF document or JSON <a href="##/definitions/FileMetaData">metadata</a>.
-        Metadata must always be supplied first.
+        If your file requires metadata, the JSON metadata MUST be supplied first.
         Only PDF documents with Content-Type 'application/pdf' are accepted.
         Related posts [How to create a transaction with api generated fields](/api/howto/2016/10/06/api-generated-fields.html), [howto create a transaction with fillable pdf fields](/api/howto/2016/04/21/howto-create-a-transaction-with-fillable-pdf-fields.html).
 
