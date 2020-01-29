@@ -544,8 +544,11 @@ definitions:
       properties:
         Uid:
           type: string
+          readOnly: true
         EntityConcernIdKvkNr:
           type: string
+          description: |
+            When provided, the provided value must match the KvK number returned by eHerkenning.
 
   eIDAS Login:
     allOf:
