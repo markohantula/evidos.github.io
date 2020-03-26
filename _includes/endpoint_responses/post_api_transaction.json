@@ -11,50 +11,29 @@
       "Iban": null,
       "BSN": null,
       "RequireScribbleName": false,
-      "RequireScribble": true,
+      "RequireScribble": false,
       "RequireEmailVerification": false,
       "RequireSmsVerification": false,
       "RequireDigidVerification": false,
       "RequireSurfnetVerification": false,
       "Verifications": [
         {
-          "Type": "IPAddress",
-          "IPAddress": "203.0.113.5"
-        },
-        {
           "Type": "iDeal"
-        }
+		},
+		{
+			"Type": "Consent"
+		}
       ],
       "SendSignRequest": true,
       "SendSignConfirmation": null,
       "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",
       "DaysToRemind": 15,
       "Language": "en-US",
-      "ScribbleName": "John Doe",
+      "ScribbleName": null,
       "ScribbleNameFixed": false,
       "Reference": "Client #123",
       "ReturnUrl": "http://signhost.com",
-      "Activities": [
-        {
-          "Id": "91709d15-df2e-48a1-ac90-276f0360ce08",
-          "Code": 103,
-          "Activity": "Opened",
-          "CreatedDateTime": "2016-06-15T23:33:04.1965465+02:00"
-        },
-        {
-          "Id": "3dfc9002-4d2d-467d-8266-e57b5b70a134",
-          "Code": 105,
-          "Activity": "DocumentOpened",
-          "Info": "contract file",
-          "CreatedDateTime": "2016-06-15T23:35:33+02:00"
-        },
-        {
-          "Id": "04adfda3-dd35-4f4d-af34-d2a08a4434f6",
-          "Code": 203,
-          "Activity": "Signed",
-          "CreatedDateTime": "2016-06-15T23:38:04.1965465+02:00"
-        }
-      ],
+      "Activities": [],
       "RejectReason": null,
       "SignUrl": "http://ui.signhost.com/sign/d959e67b-acf8-4a49-8811-9b62f0b450af",
       "SignedDateTime": null,
@@ -66,14 +45,19 @@
     {
       "Id": "b9d0f613-985d-4a5a-8e79-a83f7b5d6b55",
       "Email": "anotheruser@example.com",
-      "Mobile": "+31612345678",
-      "RequireScribble": true,
-      "RequireSmsVerification": true,
+      "Mobile": null,
+      "RequireScribble": false,
+      "RequireSmsVerification": false,
       "SendSignRequest": true,
       "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",
       "DaysToRemind": 15,
-      "ScribbleName": "John Doe",
-      "ScribbleNameFixed": false
+      "ScribbleName": null,
+	  "ScribbleNameFixed": false,
+	  "Verifications": [
+		  {
+			  "Type": "Consent"
+		  }
+	  ]
     }
   ],
   "Receivers": [
