@@ -271,7 +271,7 @@ definitions:
                 $ref: '#/definitions/Verification'
             SendSignRequest:
               description: Send a sign invitation to the signer his e-mail address.
-              default: false
+              default: true
               type: boolean
             SignUrl:
               description: |
