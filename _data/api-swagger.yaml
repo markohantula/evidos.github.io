@@ -867,6 +867,16 @@ definitions:
     allOf:
     - $ref: '#/definitions/Verification'
     - type: object
+      properties:
+        Uid:
+          type: string
+          readOnly: true
+        Attributes:
+          type: map of string
+          readOnly: true
+          description: |
+            Contains all available SURFnet attributes.
+            These attributes may change, therefore we cannot guarantee the availability of any of these attributes.
 
   FileEntry:
     type: object
