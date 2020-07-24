@@ -297,7 +297,7 @@ definitions:
                 Default value is the value of `SendSignRequest`
               type: boolean
             Language:
-              description: The language of the receiving user, only de-DE, en-US, es-ES, fr-FR, it-IT and nl-NL are allowed.
+              description: The language of the receiving user, only de-DE, en-US, es-ES, fr-FR, it-IT, pl-PL and nl-NL are allowed.
               default: nl-NL
               type: string
               enum:
@@ -306,6 +306,7 @@ definitions:
               - es-ES
               - fr-FR
               - it-IT
+              - pl-PL
               - nl-NL
             ScribbleName:
               description: The name of the signer, this will be pre filled in the scribble form.
