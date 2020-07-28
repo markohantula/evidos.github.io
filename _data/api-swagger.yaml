@@ -263,9 +263,12 @@ definitions:
 
                 You **must** use one of the following verifications as the last method:
                 - Consent
+                - itsme sign<sup>*</sup>
                 - PhoneNumber
                 - Scribble
-                - SigningCertificate
+                - SigningCertificate<sup>*</sup>
+
+                <sup>*</sup> These verifications can not be used in any other position than the last.
               type: array
               items:
                 $ref: '#/definitions/Verification'
@@ -497,10 +500,12 @@ definitions:
           The order in which the verifications are provided determine in which order the signer will have to perform the specified method.
           You **must** use one of the following verifications as the last method:
           - Consent
-          - itsme sign
+          - itsme sign<sup>*</sup>
           - PhoneNumber
           - Scribble
-          - SigningCertificate
+          - SigningCertificate<sup>*</sup>
+
+          <sup>*</sup> These verifications can not be used in any other position than the last.
 
     required:
     - Type
