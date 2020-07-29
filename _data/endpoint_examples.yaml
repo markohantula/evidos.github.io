@@ -69,7 +69,6 @@ put/api/transaction/{transactionId}/file/{fileId}:
       curl \
         -H "Authorization: APIKey {usertoken here}" \
         -H "Application: APPKey {appkey here}" \
-        -H "SH-DisplayName: Your personal contract" \
         -H "Content-Type: application/pdf" \
         -H "Digest: SHA-256=HtHRpLOZBEMnTpQS6Zn12veC4uhjtMwamfVAwmPQPmE=" \
       -XPUT \
