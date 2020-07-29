@@ -78,19 +78,11 @@ Parameter     | Description
 transactionId | id from the transaction as returned by Create a transaction
 filedId       | A unique id to be created at your side to identity the document. Could be your document filename.
 
-
-HTTP headers
-
- Header        | Description
----------------|------------
-SH-DisplayName | The name of the document we will display on the screen
-
 Example
 
     curl \
         -H "Authorization: APIKey {usertoken here}" \
         -H "Application: APPKey {appkey here}" \
-        -H "SH-DisplayName: Your personal contract" \
         -H "Content-Type: application/pdf" \
         -XPUT \
         -T Contract.pdf \
@@ -105,7 +97,6 @@ You can add another file by using a different fileId like this:
     curl \
         -H "Authorization: APIKey {usertoken here}" \
         -H "Application: APPKey {appkey here}" \
-        -H "SH-DisplayName: Extra document to read and sign" \
         -H "Content-Type: application/pdf" \
         -XPUT \
         -T Document.pdf \
