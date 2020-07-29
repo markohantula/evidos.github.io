@@ -77,7 +77,7 @@ Parameter     | Description
 --------------|-------------
 Content-Type  | application/json
 transactionId | id from the transaction as returned by Create a transaction
-filedId       | A unique id to be created at your side to identity the document. Could be your document filename.
+fileId        | A unique id to be created at your side to identity the document. Could be your document filename.
 
 The following example creates two formset definitions.
 The first is named `SampleFormset` and contains 2 single line text fields and 1 signature field.
@@ -226,7 +226,7 @@ Parameter     | Description
 --------------|-------------
 Content-Type  | application/pdf
 transactionId | id from the transaction as returned by Create a transaction
-filedId       | A unique id to be created at your side to identity the document. Should be the same id as the one you provided for the file meta data.
+fileId        | A unique id to be created at your side to identity the document. Should be the same id as the one you provided for the file meta data.
 
 
 Example
