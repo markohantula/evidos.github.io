@@ -76,7 +76,7 @@ Please note, previously you would also receive a "File": { "id":  "someid" }, th
 Parameter     | Description
 --------------|-------------
 transactionId | id from the transaction as returned by Create a transaction
-filedId       | A unique id to be created at your side to identity the document. Could be your document filename.
+fileId        | A unique id to be created at your side to identity the document. Could be your document filename.
 
 Example
 
