@@ -923,9 +923,6 @@ definitions:
       DisplayName:
         type: string
         description: With what name we'll display the file to the signer
-      Description:
-        type: string
-        description: With what description we'll display the file to the signer
       SetParaph:
         type: bool
         description: |
