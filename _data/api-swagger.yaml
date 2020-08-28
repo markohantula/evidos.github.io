@@ -230,7 +230,7 @@ definitions:
         description: Seal the document before sending to the signers.
       Signers:
         type: array
-        description: The signer information, max 4 signers.
+        description: The signer information.
         items:
           type: object
           required:
