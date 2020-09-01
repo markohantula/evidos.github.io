@@ -256,10 +256,24 @@ definitions:
                 - `*Emphasis*` / `_Emphasis_`
                 - `**Stong**` / `__Strong__`
                 - `1. Ordered` and `- Unordered` lists
+            Authentications:
+              description: |
+                List of authentications that the signer has to authenticate with.
+                The order in which the authentications are provided determine in which order the signer will have to perform the specified method.
+
+                Authentications must be performed before the document(s) can be viewed.
+
+                You **must** explicitly specify the API-version when using this feature.
+                This is done with the header: 'Accept: application/vnd.signhost.v1+json'.
+              type: array
+              items:
+                $ref: '#/definitions/Authentication'
             Verifications:
               description: |
                 List of verifications that the signer has to verify with.
                 The order in which the verifications are provided determine in which order the signer will have to perform the specified method.
+
+                Verifications must be performed before the document(s) can be signed.
 
                 You **must** use one of the following verifications as the last method:
                 - Consent
@@ -470,6 +484,79 @@ definitions:
         type: object
         description: Any valid json object which we will return back to you when doing a GET on the transaction or when we send a postback.
 
+  Authentication:
+    type: object
+    discriminator: Type
+    properties:
+      Type:
+        type: string
+        enum:
+          - DigiD
+          - PhoneNumber
+        description: |
+          Type of the authentication object.
+          The `Type` property **must** be the first property in the json!
+
+          The order in which the authentications are provided determine in which order the signer will have to perform the specified method.
+    required:
+    - Type
+
+  DigiD Authentication:
+    allOf:
+    - $ref: '#/definitions/Authentication'
+    - type: object
+      description: |
+        Adds a DigiD step to the authentication process.
+      properties:
+        Bsn:
+          type: string
+          description: |
+            The provided value must match the BSN of the credentials returned by DigiD.
+            The BSN is required to match an '11-proef'.
+          required: true
+        Betrouwbaarheidsniveau:
+          type: string
+          enum:
+            - Basis
+            - Midden
+            - Substantieel
+            - Hoog
+          readOnly: true
+          description: |
+            The level of confidence with which the identity of the signer has been determined.
+            For further information, please refer to [Logius](https://www.logius.nl/diensten/digid/hoe-werkt-het).
+    example: |
+      A DigiD authentication response may have the following content:
+      ```json
+      {
+          "Type": "DigiD",
+          "Bsn": "910078476"
+      }
+      ```
+
+  PhoneNumber Authentication:
+    allOf:
+    - $ref: '#/definitions/Authentication'
+    - type: object
+      properties:
+        Number:
+          type: string
+          description: |
+            The mobile phone number of the signer.
+            Must conform to E.164,
+            [the international public telecommunication numbering plan](https://en.wikipedia.org/wiki/E.164),
+            which requires the country calling code (e.g. +31).
+          example: "+31123456789"
+          required: true
+    example: |
+      A phone number authentication response may have the following content:
+      ```json
+      {
+        "Type": "PhoneNumber",
+        "Number": "+31123456789"
+      }
+      ```
+
   Verification:
     type: object
     discriminator: Type
@@ -529,6 +616,17 @@ definitions:
           description: |
             When provided, the provided value must match the BSN of the credentials returned by DigiD.
             The BSN is required to match an '11-proef'.
+        Betrouwbaarheidsniveau:
+          type: string
+          enum:
+            - Basis
+            - Midden
+            - Substantieel
+            - Hoog
+          readOnly: true
+          description: |
+            The level of confidence with which the identity of the signer has been determined.
+            For further information, please refer to [Logius](https://www.logius.nl/diensten/digid/hoe-werkt-het).
     example: |
       A DigiD verification response may have the following content:
       ```json
