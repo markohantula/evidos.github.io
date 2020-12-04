@@ -73,7 +73,9 @@ paths:
             properties:
               SendNotifications:
                 type: boolean
-                description: Send e-mail notifications to the awaiting signers.
+                description: |
+                  Send e-mail notifications to the awaiting signers,
+                  when SendSignRequest has been set to true during the transaction creation.
                 default: false
               Reason:
                 type: string
