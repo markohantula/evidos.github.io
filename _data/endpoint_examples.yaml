@@ -89,7 +89,7 @@ delete/api/transaction/{transactionId}:
         -H "Application: APPKey {appkey here}" \
         -H "Content-Type: application/json" \
         -d '{
-          "SendNotifications": true
+          "SendNotifications": true,
           "Reason": "This document is out-dated"
           }'
         -X DELETE
