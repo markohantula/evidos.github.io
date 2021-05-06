@@ -47,11 +47,11 @@ Your system will have to handle these scenarios.
 ### Activities & Statuses
 A transaction has an overarching status.
 This status tells more about the entire transaction, and might contain end statuses as well such as signed, rejected.
-A full list can be found [here](/status-activity#statuses).
+A full list can be found at the [transaction statuses section](/status-activity#statuses).
 
 Furthermore, per signer, there can be different statuses, such as signer activities.
 These detail what an individual person has done in their signing session.
-A full list can be found [here](/status-activity#activities).
+A full list can be found at the [signer activities section](/status-activity#activities).
 
 A postback is sent out when the entire transaction status changes and we send postbacks for activities from specific signers.
 The postback contains only one transaction status at a time.
@@ -61,7 +61,8 @@ This can help you list all the activities which have taken place for the individ
 ### Signer activities
 Signer activities detail what interactions a specific person had with the transaction and the documents within.
 These activities give real-time insight in the full audit trail of what a signer has done to come to a signed document and can be used in your business logic and dashboarding to provide extra information to your uses.
-A signer who checked a document five times but still hasn’t signed, might trigger a signal to give them a call...
+A signer who checked a document five times but still hasn’t signed, might trigger a signal to give them a call…
+A full list can be found at the [signer activities section](/status-activity#activities).
 
 A few scenarios around signer activity postbacks:
 
@@ -85,7 +86,7 @@ Make sure that subsequent signer activities or duplicate postbacks _after_ the f
 ### Transaction statuses
 A transaction has an overarching status.
 This status tells more about the entire transaction, and might contain end statuses as well such as signed, rejected.
-A full list can be found [here](/status-activity#statuses).
+A full list can be found at the [transaction statuses section](/status-activity#statuses).
 
 A few scenarios around transaction status postbacks:
 
