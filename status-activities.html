@@ -4,7 +4,7 @@ title: Statuses & Activities
 permalink: /status-activity/
 ---
   <p>Some of our endpoints return both the status of the transaction and signer activities. A list of all the statuses as well as a list of all the activities can be found below.</p>
-  <h2>Transaction Statuses</h2>
+  <h2 id="statuses">Transaction Statuses</h2>
   <table>
     <tbody>
         {% for status in site.data.status-activity.status %}
@@ -16,7 +16,7 @@ permalink: /status-activity/
     </tbody>
   </table>
 <p> Status 20 will be returned whenever there is processing involved on our end.</p>
-  <h2>Signer Activities</H2>
+  <h2 id="activities">Signer Activities</H2>
   <table>
     <tbody>
         {% for activity in site.data.status-activity.activity %}

@@ -11,7 +11,7 @@ If you cannot implement the postback service, or you have any questions regardin
 ### Advised postback implementation flow
 
 To avoid postback queues for your application, we advise the following flow once a postback arrives at your server:
-  1. Perform checksum validation
+  1. Perform [checksum validation](#checksum)
       * Validate the body is valid JSON, if not move to step 2;
       * Validate the JSON has a Checksum property, if not move to step 2;
       * Validate the Checksum value, if there is a mismatch move to step 2.
@@ -21,29 +21,89 @@ To avoid postback queues for your application, we advise the following flow once
   4. Continue business logic
 
 \* This is a security precaution which prevents information on your validation process to return to the - potentially malicious - sender of the postback.
-Any other response than 2xx will lead to the formation of a postback queue (see below).
+Any other response than `2xx` will lead to the formation of a postback queue (see below).
 
-## Request Information
-
-### Parameters
-
-None.
-
-### Description
-
+## Postback Information
+### General
 By default we will send a postback when:
 
 *   There is a status change in the transaction (eg the transaction went from waiting for signer to all signed)
 *   There is a signer activity (eg an email was sent)
 *   There is a receiver activity (eg an email was sent)
 
-A postback is sent at-least-once.
-There is no deduplication.
-If the postback url returns a non 2xx http status code we will queue any new postbacks.
+If the postback url returns a non `2xx` HTTP status code we will [queue any new postbacks](#what-happens-if-your-postback-url-is-down-or-cant-accept-requests).
 In the meantime we will retry to deliver the first failed postback with an increasing interval (the first retry is within a few minutes).
 After 5 successive failed attempts we will send you an email.
 We will include the attachment with the received response (if any).
-When we receive a 2xx http status code we will mark the postback url as available and start sending the queued postbacks.
+When we receive a `2xx` HTTP status code we will mark the postback url as available and start sending the queued postbacks.
+
+To guarantee performance and uptime, and make sure there is no data loss, it can happen that you receive the same postback twice.
+Our system consists of multiple instances.
+There is no deduplication.
+By checking if the postback from instance one is already sent from instance two, we would re-introduce a single point of failure.
+Furthermore, it is possible to receive postbacks containing statuses or activities after a signer signed, or after the entire transaction is marked as signed.
+Your system will have to handle these scenarios.
+
+### Activities & Statuses
+A transaction has an overarching status.
+This status tells more about the entire transaction, and might contain end statuses as well such as signed, rejected.
+A full list can be found [here](/status-activity#statuses).
+
+Furthermore, per signer, there can be different statuses, such as signer activities.
+These detail what an individual person has done in their signing session.
+A full list can be found [here](/status-activity#activities).
+
+A postback is sent out when the entire transaction status changes and we send postbacks for activities from specific signers.
+The postback contains only one transaction status at a time.
+It does however contain the full list of all signer activities which have taken place.
+This can help you list all the activities which have taken place for the individual signers.
+
+### Signer activities
+Signer activities detail what interactions a specific person had with the transaction and the documents within.
+These activities give real-time insight in the full audit trail of what a signer has done to come to a signed document and can be used in your business logic and dashboarding to provide extra information to your uses.
+A signer who checked a document five times but still hasn’t signed, might trigger a signal to give them a call...
+
+A few scenarios around signer activity postbacks:
+
+- In a transaction with two signers, the first signer signed the document.
+The second signer still has to sign.
+Your system receives a signer activity __203__ for signer 1.
+After signing, the first signer goes back to their email, and clicks the invite link again.
+You will receive a subsequent status __103__, but that still means signer 1 has signed the document.
+
+- Due to queuing processes on both our end and your end, you might receive the signer activity postback for 'signed' (__203__) and 'document opened' (__105__) at the same time.
+That still means that signer 1 has signed the document.
+
+#### Business logic around signer activities
+Signer activities can be identified via a combination of Activity ID, Status code and CreatedDateTime.
+This might help you identify and list signer activities in your own system.
+
+Please note that your own business logic might use signer activities for subsequent actions.
+For example, if you do not use our email logic, and you want to invite signer 2 after signer 1 signed, you will rely on the signer activity __203__ for signer 1 to send this message.
+Make sure that subsequent signer activities or duplicate postbacks _after_ the first ‘signed’ (__203__) do not overwrite or retrigger any invitations.
+
+### Transaction statuses
+A transaction has an overarching status.
+This status tells more about the entire transaction, and might contain end statuses as well such as signed, rejected.
+A full list can be found [here](/status-activity#statuses).
+
+A few scenarios around transaction status postbacks:
+
+- A transaction is created, and two documents are attached.
+The transaction still shows ‘waiting for document’ (__5__).
+You need to start the transaction so we know you’ve finished uploading files.
+
+- A transaction with two signers is signed by the first signer.
+The status is still ‘waiting for signer’ (__10__).
+Signer 2 still needs to sign!
+After end statuses such as __30__, __40__, __50__, __60__, __70__ you can still receive postbacks with signer activities.
+People might click the invite link again or download signed documents.
+
+#### Business logic around transaction statuses
+Transaction status postbacks can be identified via a combination of the Transaction ID, Status code and Checksum.
+Please note that multiple postbacks with the same combination of these factors might arrive because of the at-least-once principle but also because you receive multiple signer activities falling under the same transaction status.
+
+Please note that your own business logic can handle this, so that subsequent status __30__ postbacks because of at-least-once or new signer activities do not overwrite or retrigger any actions on your end.
 
 ### Checksum
 
@@ -58,6 +118,18 @@ The checksum is generated using the following formula:
 > eg ```Checksum = SHA1(transaction id + | + file id + | + status  + | + sharedsecret)```
 
 As you may have noticed the “pipe” sign ( &#124; ) is used as the delimiter between values. You may need to put the delimiters between single quotes (‘) or double quotes (“) depending on the programming language that you will be using. The value returned by the SHA1 function is a string of 40 characters representing a hexadecimal value. How to use the SHA1 algorithm depends on your development platform. Most languages and frameworks (such as PHP and ASP.NET) have built-in implementations of the SHA1 algorithm. For other languages, such as classic ASP, implementations of the SHA1 algorithm are available online.
+
+### What happens if your postback URL is down or can't accept requests?
+
+If the webhook URL doesn't return a `2xx` HTTP response code, that POST request will be re-attempted with a random increasing interval.
+All following postbacks will be put in a postback queue, and will wait there untill the first postback in the queue gets a `2xx` HTTP response code.
+
+If a particular POST request is unsuccessful and is being retried, no other POSTs will be attempted until the first one succeeds or is marked as failed.
+Requests are marked failed after about 1 week since the request was created.
+Subsequent postbacks are deferred until the first completes.
+Once the first postback request completes the deferred requests will be processed sequentially.
+
+Since postback requests can ultimately fail, it's best to accept and store data on your end (with an HTTP `200` response to Signhost) for later processing to avoid data loss.
 
 ### Request body formats
 
@@ -139,15 +211,3 @@ As you may have noticed the “pipe” sign ( &#124; ) is used as the delimiter 
   "Checksum": "b5a99e1de5b9e0e9915df09d3b819be188dae900"
 }
 ```
-
-### What happens if your postback URL is down or can't accept requests?
-
-If the webhook URL doesn't return a 2xx HTTP response code, that POST request will be re-attempted with a random increasing interval.
-All following postbacks will be put in a postback queue, and will wait there untill the first postback in the queue gets a 2xx HTTP response code.
-
-If a particular POST request is unsuccessful and is being retried, no other POSTs will be attempted until the first one succeeds or is marked as failed.
-Requests are marked failed after about 1 week since the request was created.
-Subsequent postbacks are deferred until the first completes.
-Once the first postback request completes the deferred requests will be processed sequentially.
-
-Since postback requests can ultimately fail, it's best to accept and store data on your end (with an HTTP 200 response to Signhost) for later processing to avoid data loss.
