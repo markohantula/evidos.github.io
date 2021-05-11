@@ -254,7 +254,7 @@ Example
 	curl \
 		-H "Authorization: APIKey {usertoken here}" \
 		-H "Application: APPKey {appkey here}" \
-		https://api.signhost.com/api.transaction/SomeTransactionId/start
+		https://api.signhost.com/api/transaction/SomeTransactionId/start
 
 Success 200
 
