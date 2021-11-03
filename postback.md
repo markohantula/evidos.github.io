@@ -25,7 +25,8 @@ Any other response than `2xx` will lead to the formation of a postback queue (se
 
 ## Postback Information
 ### General
-By default we will send a postback when:
+
+By default we will send a postback with the most up-to-date data known at the moment when:
 
 *   There is a status change in the transaction (eg the transaction went from waiting for signer to all signed)
 *   There is a signer activity (eg an email was sent)
