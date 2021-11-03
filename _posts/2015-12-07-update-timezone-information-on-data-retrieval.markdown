@@ -24,17 +24,12 @@ For example when doing a POST on /api/transaction you would receive the followin
       "Email": "user@example.com",
       "SendSignRequest": true,
       "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",
-      "SignedDateTime": null,
-      "RejectDateTime": null,
       "CreatedDateTime": "2015-12-07T15:49:30.7415254+01:00",
-      "ModifiedDateTime": "2015-12-07T15:49:30.7415254+01:00",
-      "Context": null
+      "ModifiedDateTime": "2015-12-07T15:49:30.7415254+01:00"
     }
   ],
   "CreatedDateTime": "2015-12-07T15:49:30.7415254+01:00",
-  "ModifiedDateTime": "2015-12-07T15:49:30.7415254+01:00",
-  "CanceledDateTime": null,
-  "Context": null
+  "ModifiedDateTime": "2015-12-07T15:49:30.7415254+01:00"
 }
 ```
 
@@ -59,17 +54,12 @@ For example, when doing a GET on the previous example you would receive:
       "Email": "user@example.com",
       "SendSignRequest": true,
       "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",
-      "SignedDateTime": null,
-      "RejectDateTime": null,
       "CreatedDateTime": "2015-12-07T15:49:30.7415254",
-      "ModifiedDateTime": "2015-12-07T15:49:30.7415254",
-      "Context": null
+      "ModifiedDateTime": "2015-12-07T15:49:30.7415254"
     }
   ],
   "CreatedDateTime": "2015-12-07T15:49:30.7415254",
-  "ModifiedDateTime": "2015-12-07T15:49:30.7415254",
-  "CanceledDateTime": null,
-  "Context": null
+  "ModifiedDateTime": "2015-12-07T15:49:30.7415254"
 }
 ```
 
