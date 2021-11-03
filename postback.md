@@ -25,7 +25,8 @@ Any other response than `2xx` will lead to the formation of a postback queue (se
 
 ## Postback Information
 ### General
-By default we will send a postback when:
+
+By default we will send a postback with the most up-to-date data known at the moment when:
 
 *   There is a status change in the transaction (eg the transaction went from waiting for signer to all signed)
 *   There is a signer activity (eg an email was sent)
@@ -142,11 +143,8 @@ Since postback requests can ultimately fail, it's best to accept and store data 
   "Signers": [
     {
       "Id": "fa95495d-6c59-48e0-962a-a4552f8d6b85",
-      "Expires": null,
       "Email": "user@example.com",
       "Mobile": "+31612345678",
-      "Iban": null,
-      "BSN": null,
       "RequireScribbleName": false,
       "RequireScribble": true,
       "RequireEmailVerification": true,
@@ -155,7 +153,7 @@ Since postback requests can ultimately fail, it's best to accept and store data 
       "RequireDigidVerification": false,
       "RequireSurfnetVerification": false,
       "SendSignRequest": true,
-      "SendSignConfirmation": null,
+      "SendSignConfirmation": true,
       "SignRequestMessage": "Hello, could you please sign this document? Best regards, John Doe",
       "DaysToRemind": 15,
       "Language": "en-US",
@@ -177,13 +175,9 @@ Since postback requests can ultimately fail, it's best to accept and store data 
           "CreatedDateTime": "2016-06-15T23:38:04.1965465+02:00"
         }
       ],
-      "RejectReason": null,
       "SignUrl": "https://view.signhost.com/sign/d3c93bd6-f1ce-48e7-8c9c-c2babfdd4034",
-      "SignedDateTime": null,
-      "RejectDateTime": null,
       "CreatedDateTime": "2016-06-15T23:33:04.1965465+02:00",
-      "ModifiedDateTime": "2016-06-15T23:33:04.1965465+02:00",
-      "Context": null
+      "ModifiedDateTime": "2016-06-15T23:33:04.1965465+02:00"
     }
   ],
   "Receivers": [
@@ -193,11 +187,9 @@ Since postback requests can ultimately fail, it's best to accept and store data 
       "Email": "user@example.com",
       "Language": "en-US",
       "Message": "Hello, please find enclosed the digital signed document. Best regards, John Doe",
-      "Reference": null,
-      "Activities": null,
       "CreatedDateTime": "2016-06-15T23:33:04.1965465+02:00",
       "ModifiedDateTime": "2016-06-15T23:33:04.1965465+02:00",
-      "Context": null
+      "Activities": []
     }
   ],
   "Reference": "Contract #123",
@@ -207,8 +199,6 @@ Since postback requests can ultimately fail, it's best to accept and store data 
   "SendEmailNotifications": true,
   "CreatedDateTime": "2016-08-31T21:22:56.2467731+02:00",
   "ModifiedDateTime": "2016-08-31T21:22:56.2467731+02:00",
-  "CanceledDateTime": null,
-  "Context": null,
   "Checksum": "b5a99e1de5b9e0e9915df09d3b819be188dae900"
 }
 ```
