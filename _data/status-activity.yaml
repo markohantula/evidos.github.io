@@ -35,7 +35,7 @@ activity:
   - Number: 301
     Message: Signed document sent
   - Number: 302
-    Message: Signed document opended
+    Message: Signed document opened
   - Number: 303
     Message: Signed document downloaded
   - Number: 401
