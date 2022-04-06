@@ -226,6 +226,17 @@ definitions:
         description: A map of files attached to this transaction.
         additionalProperties:
           $ref: '#/definitions/FileEntry'
+      Language:
+        description: The language of the sender notifications and the receipt, only de-DE, en-US, es-ES, fr-FR, it-IT, pl-PL and nl-NL are allowed.
+        type: string
+        enum:
+          - de-DE
+          - en-US
+          - es-ES
+          - fr-FR
+          - it-IT
+          - pl-PL
+          - nl-NL
       Seal:
         type: boolean
         default: false
