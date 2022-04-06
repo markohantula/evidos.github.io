@@ -294,6 +294,7 @@ definitions:
                 - PhoneNumber
                 - Scribble
                 - SigningCertificate<sup>*</sup>
+                - ZealiD Qualified<sup>*</sup>
 
                 <sup>*</sup> These verifications can not be used in any other position than the last.
               type: array
@@ -593,6 +594,7 @@ definitions:
           - itsme sign
           - SigningCertificate
           - SURFnet
+          - ZealiD Qualified
         description: |
           Type of the verification object.
           The `Type` property **must** be the first property in the json!
@@ -604,6 +606,7 @@ definitions:
           - PhoneNumber
           - Scribble
           - SigningCertificate<sup>*</sup>
+          - ZealiD Qualified<sup>*</sup>
 
           <sup>*</sup> These verifications can not be used in any other position than the last.
 
@@ -995,6 +998,35 @@ definitions:
           description: |
             Contains all available SURFnet attributes.
             These attributes may change, therefore we cannot guarantee the availability of any of these attributes.
+
+  ZealiD Qualified:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+      properties:
+        Issuer:
+          type: string
+          readOnly: true
+        Subject:
+          type: string
+          readOnly: true
+        Thumbprint:
+          type: string
+          readOnly: true
+    example: |
+      A ZealID Qualified verification response may have the following content:
+      ```json
+      {
+        "Type": "ZealID Qualified",
+        "Issuer": "CN=ZealiD Issuing CA 2020, O=ZealiD AB, OID.2.5.4.97=SE5569724288,E=support@zealid.com, STREET=Box 3437, Stockholm, PostalCode=11156, C=SE"
+        "Subject": "CN=John Alexander Doe PASNL-NP11D0011 G=John Alexander, SN=Doe, C=NL,SERIALNUMBER=PASNL-NP1D0011",
+        "Thumbprint": "2B31AD44D93BE1FAED6B18A23ADF1BDD4DA0ECE8"
+      }
+      ```
+
+      Please be advised, the serial number might differ from one country to another.
+      For example, in the Netherlands, personal number (BSN) can not be used for privacy reasons
+      and is substituted by document number such as passport number, but in other countries this poses no problem.
 
   FileEntry:
     type: object
