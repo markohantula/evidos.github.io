@@ -84,6 +84,9 @@ Please note that your own business logic might use signer activities for subsequ
 For example, if you do not use our email logic, and you want to invite signer 2 after signer 1 signed, you will rely on the signer activity __203__ for signer 1 to send this message.
 Make sure that subsequent signer activities or duplicate postbacks _after_ the first ‘signed’ (__203__) do not overwrite or retrigger any invitations.
 
+Please note that the signer activity 'signed' (__203__) only indicates that the signer completed the sign flow with the intent of signing the document.
+The fully signed document is only available when we complete the processing of the document and the transaction as a whole reaches status 'signed' (__30__).
+
 ### Transaction statuses
 A transaction has an overarching status.
 This status tells more about the entire transaction, and might contain end statuses as well such as signed, rejected.
