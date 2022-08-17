@@ -26,6 +26,10 @@ Any other response than `2xx` will lead to the formation of a postback queue (se
 ## Postback Information
 ### General
 
+There are two ways of specifying which URL we should use to deliver our postback messages to.
+First, in the Signhost Portal you can [register static postback URLs](https://intercom.help/evidos/en/articles/4739431-postback-header-security) which will be automatically used for every transaction.
+Secondly, you can dynamicly specify a postback URL for a specific transaction by providing one in the `PostbackUrl` property of the [transaction object](/endpoints/##/definitions/Transaction) during the [initial POST request](/endpoints/##/paths//api/transaction/post).
+
 By default we will send a postback with the most up-to-date data known at the moment when:
 
 *   There is a status change in the transaction (eg the transaction went from waiting for signer to all signed)
@@ -44,6 +48,15 @@ There is no deduplication.
 By checking if the postback from instance one is already sent from instance two, we would re-introduce a single point of failure.
 Furthermore, it is possible to receive postbacks containing statuses or activities after a signer signed, or after the entire transaction is marked as signed.
 Your system will have to handle these scenarios.
+
+#### Multiple postback urls
+During the [POST of a transaction](/endpoints/##/paths//api/transaction/post) you have the possibillity to specify a postback URL for that specific transaction.
+This functionality is meant for separating the postbacks into different 'buckets' that would make sense for your implementation,
+for example different environments (staging, production, etc.) or different departments (sales, HR, etc.).
+
+However, this functionality is *not* meant to separate postbacks per transaction as this circumvents our postback queueing system.
+Your business logic should be able to differentiate between postbacks based on the transaction id.
+We reserve the right to block postback URLs if this feature is repeatedly abused.
 
 ### Activities & Statuses
 A transaction has an overarching status.
