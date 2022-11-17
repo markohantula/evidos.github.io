@@ -50,5 +50,13 @@ activity:
     Message: Deleted
   - Number: 700
     Message: Expired
+  - Number: 901
+    Message: Email bounce - hard
+  - Number: 902
+    Message: Email bounce - soft
+  - Number: 903
+    Message: Email bounce - blocked
+  - Number: 904
+    Message: Email bounce - undetermined
   - Number: 999
     Message: Failed
